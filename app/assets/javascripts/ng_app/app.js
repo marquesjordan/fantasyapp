@@ -27,10 +27,50 @@ $urlRouterProvider.otherwise('/');
     $scope.players = data.data;
   });
 
+  $scope.myTeam = [
+  	{player: "Empty", position: "PG"},
+  	{player: "Empty", position: "SG"},
+  	{player: "Empty", position: "SF"},
+  	{player: "Empty", position: "PF"},
+  	{player: "Empty", position: "C"},
+  ];
+
   $scope.picks = function(thisCell, num) {
   	console.log(thisCell);
   	console.log(num);
+
+  	if(thisCell.position == "PG"){
+  		console.log("Point Gaurd");
+  		$scope.pos = 0;
+  	}
+  	else if(thisCell.position == "SG"){
+  		console.log("Shooting Gaurd");
+  		$scope.pos = 1;
+  	}
+  	else if(thisCell.position == "SF"){
+  		console.log("Small Forward");
+  		$scope.pos = 2;
+  	}
+  	else if(thisCell.position == "PF"){
+  		console.log("Power Forward");
+  		$scope.pos = 3;
+  	}
+  	else if(thisCell.position == "C"){
+  		console.log("Center");
+  		$scope.pos = 4;
+  	}
+
+  	if($scope.myTeam[$scope.pos].player == "Empty"){
+  		$scope.myTeam[$scope.pos].player = thisCell.name;
+  		console.log($scope.myTeam);
+  	}
+  	else {
+  		console.log("Position Taken!!!");
+  	}
+
   }
+
+
 
 })
 

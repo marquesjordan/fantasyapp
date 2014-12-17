@@ -14,6 +14,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'bower-rails'
 
 gem 'angular-rails-templates'
+gem 'bootstrap-sass', '~> 3.3.1'
 
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'httparty'
