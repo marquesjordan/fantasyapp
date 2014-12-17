@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Home team:</strong>
+  <%= @schedule.home_team_id %>
+</p>
+
+<p>
+  <strong>Away team:</strong>
+  <%= @schedule.away_team_id %>
+</p>
+
+<p>
+  <strong>Date string:</strong>
+  <%= @schedule.date_string %>
+</p>
+
+<%= link_to 'Edit', edit_schedule_path(@schedule) %> |
+<%= link_to 'Back', schedules_path %>

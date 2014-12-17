@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fantasyapp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body ng-app="spaApp" manifest="assets/javascripts/angular/app.js">
+<a ui-sref="home">Home</a>
+<a ui-sref="about">About</a>
+
+<%= yield %>
+
+</body>
+</html>
