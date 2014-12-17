@@ -18,8 +18,9 @@ class PlayersController < ApplicationController
     #   tid = teams[i].nba_team_id
       
     
-      # @url = "http://api.sportsdatallc.org/nba-t3/teams/#{@tid}/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
-      # @puri = HTTParty.get("http://api.sportsdatallc.org/nba-t3/teams/583ed0ac-fb46-11e1-82cb-f4ce4684ea4c/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze")
+      @url = "http://api.sportsdatallc.org/nba-t3/teams/#{@tid}/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
+
+      @puri = HTTParty.get("http://api.sportsdatallc.org/nba-t3/teams/583ed0ac-fb46-11e1-82cb-f4ce4684ea4c/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze")
       # tid = "583ed0ac-fb46-11e1-82cb-f4ce4684ea4c"
       # team_count = @puri['team']['players']['player'].count
       #   for x in 0...team_count

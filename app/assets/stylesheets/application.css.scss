@@ -16,6 +16,13 @@
 
 @import "bootstrap";
 
-table{
-	border: 1px solid black;
+.wrapper{
+	// border-radius: 15px;
+	border: 2px solid black; 
+}
+.btn{
+	border-radius: 100px;
+}
+.table_head{
+	height: 75px; 
 }

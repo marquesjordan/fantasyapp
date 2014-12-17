@@ -35,6 +35,12 @@ $urlRouterProvider.otherwise('/');
   	{player: "Empty", position: "C"},
   ];
 
+  $scope.positionType = ["All", "PG", "SG", "SF", "PF", "C"];
+
+  $scope.setPosFilter = function(x){
+  	$scope.filterPos = (x=="All"?"" : x);
+  };
+
   $scope.picks = function(thisCell, num) {
   	console.log(thisCell);
   	console.log(num);
@@ -68,6 +74,10 @@ $urlRouterProvider.otherwise('/');
   		console.log("Position Taken!!!");
   	}
 
+  }
+
+  $scope.removePick = function(thisCell, num){
+  	$scope.myTeam[num].player = "Empty";
   }
 
 
