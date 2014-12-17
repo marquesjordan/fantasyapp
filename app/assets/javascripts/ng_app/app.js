@@ -27,6 +27,10 @@ $urlRouterProvider.otherwise('/');
     $scope.players = data.data;
   });
 
+  $scope.picks = function(thisCell, num) {
+  	console.log(thisCell);
+  	console.log(num);
+  }
 
 })
 

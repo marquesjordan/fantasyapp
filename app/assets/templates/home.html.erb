@@ -4,9 +4,11 @@
 	<tr>
 		<th>Name</th>
 		<th>Position</th>
+		<th>Select</th>
 	</tr>
 	<tr ng-repeat="player in players" class="rows">
 		<td>{{player.name}}</td>
 		<td>{{player.position}}</td>
+		<td><button ng-click="picks(player, $index)">+</button>
 	</tr>
 </table>
