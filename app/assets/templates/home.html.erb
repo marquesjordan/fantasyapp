@@ -1,19 +1,14 @@
-<h1>HOME PAGE</h1>
 
-<div class="container">
+
+<div class="container" id="body_main">
+	<h2 id="leauge">League Title</h2>
+	<p>Entries: 0 / 57464  Entry fee: $25.00 Prize: $150,000<p>
+
 	<div class="row">
-		<div class="col-md-8">
-			<!-- <ul class="nav nav-tabs">
-			  <li role="presentation" ng-class="navClass"><a ng-click="changeFilter()">All</a></li>
-			  <li role="presentation" ng-class="navClass"><a ng-click="changeFilter()">PG</a></li>
-			  <li role="presentation"><a>SG</a></li>
-			  <li role="presentation"><a>SF</a></li>
-			  <li role="presentation"><a>PF</a></li>
-			  <li role="presentation"><a>C</a></li>
-			</ul> -->
-			
+		<div class="col-md-7">
+
 				<h3>Available Players</h3>
-				{{xyz}}
+				
 					<div class="col-xs-8">
 						<ul class="nav nav-pills" x-ng-init="filterPos=''">
 							<!-- x-ng-class will equal 'active' if pos(ng-repeated == $scope.fiterPos)
@@ -23,21 +18,29 @@
 					</div>
 					<div class="col-xs-4" x-ng-init="search=''">
 						<input placeholder="search players" ng-model="search" class="form-control">
-					</div><br><br><br>
+					</div><br><br>
 			
 			
-			<div class="wrapper">
-				<table class="table">
+			<div class="wrapper" id="main_wrapper">
+				<table class="table table-bordered table-striped table-fixed-header" id="main_table">
+					<thead class="header">
 					<tr>
 						<th>Name</th>
-						<th>Position</th>
+						<th>Pos</th>
+						<th>Fan Avg</th>
+						<th>Cost</th>
 						<th>Select</th>
 					</tr>
-					<tr ng-repeat="player in players | filter:{name:search, position:filterPos}" class="rows">
+					</thead>
+					<tbody>
+					<tr ng-repeat="player in players | filter:{name:search, position:filterPos} | orderBy: 'fantasy':true" x-ng-class="">
 						<td>{{player.name}}</td>
 						<td>{{player.position}}</td>
+						<td>{{player.fantasy}}</td>
+						<td>{{player.cost | number}}</td>
 						<td><button ng-click="picks(player, $index)" class="btn btn-primary">+</button></td>
 					</tr>
+					</tbody>
 				</table>
 			</div> <!-- End of "wrapper" -->
 		</div>	<!-- End of "col-md-6" -->
@@ -47,22 +50,32 @@
 		
 		
 		
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<h3>Your Lineup</h3>
+			<p id="salary">${{salary | number}}</p>
+			<p>Salary Remaining</p>
 			<div class="wrapper">
 				<table class="table">
 					<tr>
 						<th>Name</th>
 						<th>Position</th>
+						<th>Cost</th>
 						<th></th>
 					</tr>
 					<tr ng-repeat="myplayer in myTeam" class="rows">
-						<td>{{myplayer.player}}</td>
+						<td ><p class="p_details">{{myplayer.player}}</p></td>
 						<td>{{myplayer.position}}</td>
+						<td>{{myplayer.cost | number}}</td>
 						<td><button ng-click="removePick(myplayer, $index)" class="btn btn-danger">-</button></td>
 					</tr>
 				</table>
 			<div> <!-- End of "wrapper" -->
 		</div>	<!-- End of "col-md-6" -->
 	</div>
+	
+	<div class="footer">
+
+	</div>
 </div>
+
+

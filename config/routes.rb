@@ -1,15 +1,16 @@
 Rails.application.routes.draw do
-  # resources :players
+  resources :players
 
   # resources :teams
 
-  # resources :schedules
+  resources :schedules
 
   root "application#index"
   # get "*path" => "application#index"
 
   scope 'api', defaults: {format: :json} do
     resources :players, only: [:index, :create, :update, :destroy]
+    resources :schedules, only: [:index, :create, :update, :destroy]
   end
 
 

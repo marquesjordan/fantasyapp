@@ -4,13 +4,8 @@ class SchedulesController < ApplicationController
   # GET /schedules
   # GET /schedules.json
   def index
-    @schedules = Schedule.all
-
-
-
-
-
-
+    schedules = Schedule.all
+    render json: schedules, status: 200
 
     ################# API PULL CODE #############################
 
@@ -20,68 +15,30 @@ class SchedulesController < ApplicationController
     # for @i in 0...@length 
     #   @home = @uri['league']['season_schedule']['games']['game'][@i]['home_team']
     #   @away = @uri['league']['season_schedule']['games']['game'][@i]['away_team']
-    #   @date = @uri['league']['season_schedule']['games']['game'][@i]['Scheduled']
-    #   Schedule.create(home_team_id: @home, away_team_id: @away, date_string: @date)
+    #   fulldate = @uri['league']['season_schedule']['games']['game'][@i]['scheduled']
+    #   fulldate_array = fulldate.split('T')
+    #   @date = fulldate_array[0]
+    #   @time = fulldate_array[1].split('+')[0]
+    #   Schedule.create(home_team_id: @home, away_team_id: @away, game_date: @date, game_time: @time)
     # end
     # @teams = @uri['league']['season_schedule']['games']['game']
   end
 
-  # GET /schedules/1
-  # GET /schedules/1.json
-  def show
-  end
-
-  # GET /schedules/new
-  def new
-    @schedule = Schedule.new
-  end
-
-  # GET /schedules/1/edit
-  def edit
-  end
-
-  # POST /schedules
-  # POST /schedules.json
   def create
-
-
-
-
-    @schedule = Schedule.new(schedule_params)
-
-    respond_to do |format|
-      if @schedule.save
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
-        format.json { render :show, status: :created, location: @schedule }
-      else
-        format.html { render :new }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
-      end
-    end
+    schedule = Schedule.create(schedule_params)
+    render json: schedule, status: 201
   end
 
-  # PATCH/PUT /schedules/1
-  # PATCH/PUT /schedules/1.json
   def update
-    respond_to do |format|
-      if @schedule.update(schedule_params)
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully updated.' }
-        format.json { render :show, status: :ok, location: @schedule }
-      else
-        format.html { render :edit }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
-      end
-    end
+    schedule = Schedule.find(params[:id])
+    schedule.update_attributes(schedule_params)
+    render nothing: true, status: 204
   end
 
-  # DELETE /schedules/1
-  # DELETE /schedules/1.json
   def destroy
-    @schedule.destroy
-    respond_to do |format|
-      format.html { redirect_to schedules_url, notice: 'Schedule was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    schedule = Schedule.find(params[:id])
+    schedule.destroy
+    render nothing: true, status: 204
   end
 
   private
@@ -92,6 +49,6 @@ class SchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def schedule_params
-      params.require(:schedule).permit(:home_team_id, :away_team_id, :date_string)
+      params.require(:schedule).permit(:home_team_id, :away_team_id, :game_date, :game_time)
     end
 end

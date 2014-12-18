@@ -17,8 +17,9 @@
 @import "bootstrap";
 
 .wrapper{
-	// border-radius: 15px;
-	border: 2px solid black; 
+	border-radius: 10px;
+	border: 2px solid black;
+	 
 }
 .btn{
 	border-radius: 100px;
@@ -26,3 +27,49 @@
 .table_head{
 	height: 75px; 
 }
+
+#main_table{
+	table-layout:fixed;
+}
+.div-table-content {
+	height:150px;
+	overflow-y:auto;
+}
+
+
+
+#main_wrapper{
+	height: 650px;
+	overflow: auto;
+}
+#salary{
+	color: red;
+	font-weight: bold;
+	font-size: 22pt;
+}
+
+body{
+	background-image: url(../assets/bball.jpg)
+}
+
+#body_main{
+	background-color: white;
+	margin-top: 70px;
+	height: 1100px;
+}
+
+.navbar{
+	background-color: grey;
+	height: 70px;
+	
+}
+
+.p_details{
+	font-size: 14pt;
+}
+
+
+// .bottom {
+// 	background: #724442;
+// 	height 75px;
+// }

@@ -23,18 +23,26 @@ $urlRouterProvider.otherwise('/');
 
   api.getPlayers()
   .then(function(data){
-    console.log(data.data[0]);
+    //console.log(data.data[0]);
     $scope.players = data.data;
   });
 
-  $scope.myTeam = [
-  	{player: "Empty", position: "PG"},
-  	{player: "Empty", position: "SG"},
-  	{player: "Empty", position: "SF"},
-  	{player: "Empty", position: "PF"},
-  	{player: "Empty", position: "C"},
-  ];
+  api.getSchedules()
+  .then(function(data){
+  	console.log('schedule');
+    console.log(data.data[0]);
+    $scope.schedule = data.data;
+  });
 
+  $scope.myTeam = [
+  	{player: "Empty", position: "PG", cost: 0},
+  	{player: "Empty", position: "SG", cost: 0},
+  	{player: "Empty", position: "SF", cost: 0},
+  	{player: "Empty", position: "PF", cost: 0},
+  	{player: "Empty", position: "C", cost: 0}
+  ];
+  $scope.teamCost = 0;
+  $scope.salary = 60000;
   $scope.positionType = ["All", "PG", "SG", "SF", "PF", "C"];
 
   $scope.setPosFilter = function(x){
@@ -42,7 +50,7 @@ $urlRouterProvider.otherwise('/');
   };
 
   $scope.picks = function(thisCell, num) {
-  	console.log(thisCell);
+  	// console.log(thisCell);
   	console.log(num);
 
   	if(thisCell.position == "PG"){
@@ -68,6 +76,9 @@ $urlRouterProvider.otherwise('/');
 
   	if($scope.myTeam[$scope.pos].player == "Empty"){
   		$scope.myTeam[$scope.pos].player = thisCell.name;
+  		$scope.myTeam[$scope.pos].cost = thisCell.cost;
+  		$scope.teamCost += thisCell.cost;
+  		$scope.salary -= thisCell.cost;
   		console.log($scope.myTeam);
   	}
   	else {
@@ -78,6 +89,11 @@ $urlRouterProvider.otherwise('/');
 
   $scope.removePick = function(thisCell, num){
   	$scope.myTeam[num].player = "Empty";
+  	
+  	console.log(thisCell.cost, num)
+  	$scope.teamCost -= thisCell.cost;
+  	$scope.salary = $scope.salary + thisCell.cost;
+  	$scope.myTeam[num].cost = 0;
   }
 
 
@@ -94,7 +110,17 @@ $urlRouterProvider.otherwise('/');
                });
                console.log(promise);
                return promise;
+          },
+          getSchedules: function() {
+
+               var promise = $http.get('/api/schedules')
+               .then(function(response) {
+                    return response
+               });
+               console.log(promise);
+               return promise;
           }
      }
+
 
 });
