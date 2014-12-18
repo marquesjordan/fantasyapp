@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :players
 
-  # resources :teams
+  resources :teams
 
   resources :schedules
 
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   scope 'api', defaults: {format: :json} do
     resources :players, only: [:index, :create, :update, :destroy]
     resources :schedules, only: [:index, :create, :update, :destroy]
+    resources :teams, only: [:index, :create, :update, :destroy]
   end
 
 

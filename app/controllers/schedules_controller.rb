@@ -12,14 +12,18 @@ class SchedulesController < ApplicationController
     # @uri = HTTParty.get"http://api.sportsdatallc.org/nba-t3/games/2014/REG/schedule.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
 
     # @length = @uri['league']['season_schedule']['games']['game'].length
+    
     # for @i in 0...@length 
+      
     #   @home = @uri['league']['season_schedule']['games']['game'][@i]['home_team']
     #   @away = @uri['league']['season_schedule']['games']['game'][@i]['away_team']
-    #   fulldate = @uri['league']['season_schedule']['games']['game'][@i]['scheduled']
-    #   fulldate_array = fulldate.split('T')
-    #   @date = fulldate_array[0]
-    #   @time = fulldate_array[1].split('+')[0]
-    #   Schedule.create(home_team_id: @home, away_team_id: @away, game_date: @date, game_time: @time)
+    #   @fulldate = @uri['league']['season_schedule']['games']['game'][@i]['scheduled']
+
+    #   # fulldate_array = fulldate.split('T')
+    #   # @date = fulldate_array[0]
+    #   # @time = fulldate_array[1].split('+')[0]
+
+    #   Schedule.create(home_team_id: @home, away_team_id: @away, game_date: @fulldate)
     # end
     # @teams = @uri['league']['season_schedule']['games']['game']
   end
