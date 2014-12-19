@@ -2,7 +2,7 @@ angular.module('spaApp', ['ui.router', 'templates'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-$urlRouterProvider.otherwise('/');
+$urlRouterProvider.otherwise('/about');
 
     $stateProvider
         .state('home', {
@@ -15,6 +15,11 @@ $urlRouterProvider.otherwise('/');
             templateUrl: 'entry.html',
             controller: 'entryController'
         })
+        .state('team', {
+            url: '/team/:contest_id',
+            templateUrl: 'team.html',
+            controller: 'teamController'
+        })
         .state('about', {
             url: '/about',
             templateUrl: 'about.html'
@@ -23,25 +28,50 @@ $urlRouterProvider.otherwise('/');
 
 })
 
+
 .controller('homeController', function($scope, api) {
+
+  
 
   api.getContests()
   .then(function(data){
     $scope.contests = data.data;
-    console.log($scope.contests[0]._id.$oid);
+    
+    $scope.todaysContests = [];
+    var contestLength = $scope.contests.length
+    var dy = new Date();
+    var month = dy.getMonth() + 1; //months from 1-12
+    var day = dy.getDate();
+    var year = dy.getFullYear();
+    newdate = year + "-" + month + "-" + day;
+
+    console.log($scope.contests[0].contest_date.split('T')[0]);
+    console.log(newdate);
+    console.log($scope.contests[0].contest_date.split('T')[0] == newdate);
+
+    for(var k = 0; k < contestLength; k++){
+      if($scope.contests[k].contest_date.split('T')[0] == newdate){
+        $scope.todaysContests.push($scope.contests[k]);
+      }
+    }
+    console.log($scope.todaysContests);
+
   });
 
 })
 
 
-.controller('entryController', function($scope, api) {
+.controller('entryController', function($scope, api, $stateParams) {
+
+  // if($stateParams.contest_id.length < 6){
+  //   $location.path('/home'); 
+  // }
+
   $scope.today_schedule = [];
   api.getPlayers()
   .then(function(data){
     //console.log(data.data[0]);
     $scope.players = data.data;
-
-
   });
 
   api.getSchedules()
@@ -191,15 +221,45 @@ $urlRouterProvider.otherwise('/');
   }
 
   $scope.addEntry = function(){
-    var userTeam = { team: $scope.myTeam };
+    var userTeam = { team: $scope.myTeam, contest: $stateParams.contest_id };
     // Post at a endpoint
-    api.createEntry(userTeam);
+    var checkPoint = 0;
+    for(var check=0;check<4;check++){
+      if($scope.myTeam[check].player_id == 0){
+        checkPoint = 1;
+      }
+    }
+
+    if(checkPoint == 1){
+      alert("Your team is not complete!");
+    }
+    else if($scope.salary < 0){
+      alert("You are over your salary!");
+    }else{
+      api.createEntry(userTeam);
+      // $location.path('/home');
+    }
   }
 
 })
 
+.controller('teamController', function($scope, api, $stateParams) {
 
-.service('api', function($http) {
+  api.getEntries()
+  .then(function(data){
+    $scope.userTeams = data.data;
+    console.log($scope.userTeams);
+    // $stateParams.contest_id
+    $scope.gameEntry = [];
+
+    for(var ut=0;ut<$scope.userTeams.length;ut++){
+      if($scope.userTeams[ut].contest_id == $stateParams.contest_id){
+        $scope.gameEntry.push($scope.userTeams[ut]);
+      }
+  });
+
+})
+.service('api', function($http, $location) {
      return {
           getPlayers: function() {
 
@@ -247,8 +307,8 @@ $urlRouterProvider.otherwise('/');
                return promise;
           },
           createEntry: function(userTeam) {
-            console.log(userTeam['team']);
-            // userTeam[0]['player_id'];
+            console.log(userTeam);
+            // userTeam[0];
             $http.post('api/entries', {rank: 0, prize: 0,
                                       pg_id: userTeam['team'][0].player_id,
                                       pg_name: userTeam['team'][0].player,
@@ -260,9 +320,9 @@ $urlRouterProvider.otherwise('/');
                                       pf_name: userTeam['team'][3].player,
                                       c_id: userTeam['team'][4].player_id,
                                       c_name: userTeam['team'][4].player,
-                                      fan_points: 0
+                                      fan_points: 0, contest_id: userTeam['contest']
                                       }
-                      )
+                      ).success(function(){ $location.path('/home') } );
             
 
             // (:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :fan_points)

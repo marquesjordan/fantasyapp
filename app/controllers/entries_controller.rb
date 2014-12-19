@@ -10,7 +10,12 @@ class EntriesController < ApplicationController
 
   def create
     entry = Entry.create(entry_params)
-    render json: entry, status: 201
+
+    entry.user_id = current_user.id
+    
+    entry.save
+    # render json: entry, status: 201
+    redirect_to root_path
   end
 
   def update
@@ -32,6 +37,6 @@ class EntriesController < ApplicationController
     end
 
     def entry_params
-      params.require(:entry).permit(:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :fan_points)
+      params.require(:entry).permit(:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :fan_points, :user_id, :contest_id)
     end
 end

@@ -58,8 +58,23 @@ body{
 
 #body_main{
 	background-color: #F3F6FF;
+
 	margin-top: 70px;
 	height: 1100px;
+}
+
+#about_main{
+	background-color: rgba(0, 0, 0,0.7);
+	margin-top: 70px;
+	height: 1100px;
+	text-align: center;
+	font-size: 40pt;
+	color: white;
+}
+
+#about_main h1{
+	font-size: 40pt;
+	font-family: 'Abril Fatface', cursive;
 }
 
 .navbar{
@@ -67,7 +82,9 @@ body{
 	height: 70px;
 	
 }
-
+#daily{
+	color: #48C743
+}
 .p_details{
 	font-size: 14pt;
 }
@@ -78,12 +95,19 @@ body{
 }
 
 #body_logs{
-	background-image: url(../assets/fans.jpg);
-	margin-top: 70px;
+	// background-image: url(../assets/fans.jpg);
+	background-color: rgba(0,0,0,0.5);
+	margin-top: 100px;
 	height: 600px;
 }
 
 #nav_log{
+	margin-top: 5px;
+	border: 1px solid white;
+	border-radius: 8px;
+	color: white;
+}
+.nav_log{
 	margin-top: 5px;
 	border: 1px solid white;
 	border-radius: 8px;
@@ -101,6 +125,7 @@ body{
 	float: left;
 }
 #games div{
+
 	width: 100px;
 	height: 70px;
 	border: 1px solid black;

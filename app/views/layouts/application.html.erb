@@ -5,18 +5,25 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
 </head>
 <body ng-app="spaApp" manifest="assets/javascripts/angular/app.js">
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
   	<div class="navbar-header">
-      <a class="navbar-brand" href="/">
+      <a class="navbar-brand" href="/#/about">
         <img id="logo" alt="Brand" src="/assets/fan_life.png">
       </a>
     </div>
   	<ul class="nav navbar-nav navbar-right">
+      <% if current_user %>
+        <li><a id="nav_log" href="#/home">Contest</a></li>
+        <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :id => "nav_log" %></li>
+      <% else %>
         <li><a id="nav_log" href="/users/sign_up">SignUp</a></li>
         <li><a id="nav_log" href="/users/sign_in">LogIn</a></li>
+      <% end %>
+        
     </ul>
   </div>
 </nav>

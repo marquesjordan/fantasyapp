@@ -7,4 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 		# Contest.create(contest_type: 0, num_players: 10, fee: 5)
-		# Contest.create(contest_type: 0, num_players: 50, fee: 1)
+		# Contest.create(contest_type: 1, num_players: 50, fee: 1)

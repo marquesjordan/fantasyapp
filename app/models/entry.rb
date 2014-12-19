@@ -13,4 +13,6 @@ class Entry
   field :pf_name, type: String
   field :c_name, type: String
   field :fan_points, type: Float
+  field :user_id, type: String
+  field :contest_id, type: String
 end

@@ -5,11 +5,18 @@ class ContestsController < ApplicationController
 
   def index
     contests = Contest.all
+    # contests = Contest.where("contest_date > ?", Date.today())
     render json: contests, status: 200
   end
 
   def create
     contest = Contest.create(contest_params)
+    if contest.contest_type == 0
+      contest.description = "50/50 League"
+    elsif contest.contest_type == 1
+      contest.description = "Tournament"
+    end
+    contest.save
     render json: contest, status: 201
   end
 

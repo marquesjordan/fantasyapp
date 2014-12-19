@@ -9,7 +9,8 @@
 			<table class="table table-bordered table-striped table-fixed-header">
 				<thead class="header">
 				<tr>
-					<th>League Type</th>
+					<th>Contest ID</th>
+					<th>League Description</th>
 					<th>Entries</th>
 					<th>Size</th>
 					<th>Fee</th>
@@ -17,12 +18,13 @@
 				</tr>
 				</thead>
 				<tbody>
-				<tr ng-repeat="contest in contests">
-					<td>{{contest.contest_type}}</td>
+				<tr ng-repeat="contest in todaysContests">
+					<td><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
+					<td>{{contest.description}}</td>
 					<td>{{contest.players_count}}</td>
 					<td>{{contest.num_players}}</td>
 					<td>{{contest.fee}}</td>
-					<td><a ui-sref="entry({ contest_id: contest._id.$oid })", class="btn btn-success">Enter</a></td>
+					<td><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
 				</tr>
 				</tbody>
 			</table>

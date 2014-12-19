@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   resources :contests
 
   devise_for :users
+  
   resources :players
 
   resources :teams
 
   resources :schedules
+  
 
   root "application#index"
   # get "*path" => "application#index"
