@@ -15,7 +15,7 @@ gem 'bower-rails'
 gem 'devise'
 gem 'angular-rails-templates'
 gem 'bootstrap-sass', '~> 3.3.1'
-
+gem 'rails_12factor'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'httparty'
 # Use jquery as the JavaScript library
