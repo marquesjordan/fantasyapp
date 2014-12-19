@@ -1,6 +1,6 @@
 angular.module('spaApp', ['ui.router', 'templates'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
 
 $urlRouterProvider.otherwise('/about');
 
@@ -26,10 +26,10 @@ $urlRouterProvider.otherwise('/about');
         });
 
 
-})
+}])
 
 
-.controller('homeController', function($scope, api) {
+.controller('homeController', ['$scope', 'api', function($scope, api) {
 
   
 
@@ -58,10 +58,10 @@ $urlRouterProvider.otherwise('/about');
 
   });
 
-})
+}])
 
 
-.controller('entryController', function($scope, api, $stateParams) {
+.controller('entryController', ['$scope', 'api', '$stateParams',function($scope, api, $stateParams) {
 
   // if($stateParams.contest_id.length < 6){
   //   $location.path('/home'); 
@@ -241,9 +241,9 @@ $urlRouterProvider.otherwise('/about');
     }
   }
 
-})
+}])
 
-.controller('teamController', function($scope, api, $stateParams) {
+.controller('teamController', ['$scope', 'api', '$stateParams',function($scope, api, $stateParams) {
 
   api.getEntries()
   .then(function(data){
@@ -260,8 +260,8 @@ $urlRouterProvider.otherwise('/about');
 
   });
 
-})
-.service('api', function($http, $location) {
+}])
+.service('api', ['$http', '$location',function($http, $location) {
      return {
           getPlayers: function() {
 
@@ -334,4 +334,4 @@ $urlRouterProvider.otherwise('/about');
      }
 
 
-});
+}]);
