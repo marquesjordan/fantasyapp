@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @entry.rank %>
+</p>
+
+<p>
+  <strong>Prize:</strong>
+  <%= @entry.prize %>
+</p>
+
+<p>
+  <strong>Pg:</strong>
+  <%= @entry.pg_id %>
+</p>
+
+<p>
+  <strong>Sg:</strong>
+  <%= @entry.sg_id %>
+</p>
+
+<p>
+  <strong>Sf:</strong>
+  <%= @entry.sf_id %>
+</p>
+
+<p>
+  <strong>Pf:</strong>
+  <%= @entry.pf_id %>
+</p>
+
+<p>
+  <strong>C:</strong>
+  <%= @entry.c_id %>
+</p>
+
+<p>
+  <strong>Fan points:</strong>
+  <%= @entry.fan_points %>
+</p>
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

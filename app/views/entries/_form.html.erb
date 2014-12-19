@@ -1,0 +1,49 @@
+<%= form_for(@entry) do |f| %>
+  <% if @entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+
+      <ul>
+      <% @entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rank %><br>
+    <%= f.number_field :rank %>
+  </div>
+  <div class="field">
+    <%= f.label :prize %><br>
+    <%= f.text_field :prize %>
+  </div>
+  <div class="field">
+    <%= f.label :pg_id %><br>
+    <%= f.text_field :pg_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sg_id %><br>
+    <%= f.text_field :sg_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sf_id %><br>
+    <%= f.text_field :sf_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pf_id %><br>
+    <%= f.text_field :pf_id %>
+  </div>
+  <div class="field">
+    <%= f.label :c_id %><br>
+    <%= f.text_field :c_id %>
+  </div>
+  <div class="field">
+    <%= f.label :fan_points %><br>
+    <%= f.text_field :fan_points %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

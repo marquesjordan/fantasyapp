@@ -11,7 +11,7 @@ $urlRouterProvider.otherwise('/');
             controller: 'homeController'
         })
         .state('entry', {
-            url: '/entry',
+            url: '/entry/:contest_id',
             templateUrl: 'entry.html',
             controller: 'entryController'
         })
@@ -22,8 +22,14 @@ $urlRouterProvider.otherwise('/');
 
 
 })
+
 .controller('homeController', function($scope, api) {
 
+  api.getContests()
+  .then(function(data){
+    $scope.contests = data.data;
+    console.log($scope.contests[0]._id.$oid);
+  });
 
 })
 
@@ -122,14 +128,14 @@ $urlRouterProvider.otherwise('/');
 
 
   $scope.myTeam = [
-  	{player: "Empty", position: "PG", cost: 0},
-  	{player: "Empty", position: "SG", cost: 0},
-  	{player: "Empty", position: "SF", cost: 0},
-  	{player: "Empty", position: "PF", cost: 0},
-  	{player: "Empty", position: "C", cost: 0}
+  	{player_id: 0, player: "Empty", position: "PG", cost: 0},
+  	{player_id: 0, player: "Empty", position: "SG", cost: 0},
+  	{player_id: 0, player: "Empty", position: "SF", cost: 0},
+  	{player_id: 0, player: "Empty", position: "PF", cost: 0},
+  	{player_id: 0, player: "Empty", position: "C", cost: 0}
   ];
   $scope.teamCost = 0;
-  $scope.salary = 60000;
+  $scope.salary = 35000;
   $scope.positionType = ["All", "PG", "SG", "SF", "PF", "C"];
 
   $scope.setPosFilter = function(x){
@@ -162,6 +168,7 @@ $urlRouterProvider.otherwise('/');
   	}
 
   	if($scope.myTeam[$scope.pos].player == "Empty"){
+      $scope.myTeam[$scope.pos].player_id = thisCell.player_id;
   		$scope.myTeam[$scope.pos].player = thisCell.name;
   		$scope.myTeam[$scope.pos].cost = thisCell.cost;
   		$scope.teamCost += thisCell.cost;
@@ -175,15 +182,19 @@ $urlRouterProvider.otherwise('/');
   }
 
   $scope.removePick = function(thisCell, num){
+  	$scope.myTeam[num].player_id = 0;
   	$scope.myTeam[num].player = "Empty";
-  	
   	console.log(thisCell.cost, num)
   	$scope.teamCost -= thisCell.cost;
   	$scope.salary = $scope.salary + thisCell.cost;
   	$scope.myTeam[num].cost = 0;
   }
 
-
+  $scope.addEntry = function(){
+    var userTeam = { team: $scope.myTeam };
+    // Post at a endpoint
+    api.createEntry(userTeam);
+  }
 
 })
 
@@ -216,7 +227,47 @@ $urlRouterProvider.otherwise('/');
                });
                console.log(promise);
                return promise;
+          },
+          getContests: function() {
+
+               var promise = $http.get('/api/contests')
+               .then(function(response) {
+                    return response
+               });
+               console.log(promise);
+               return promise;
+          },
+          getEntries: function() {
+
+               var promise = $http.get('/api/entries')
+               .then(function(response) {
+                    return response
+               });
+               console.log(promise);
+               return promise;
+          },
+          createEntry: function(userTeam) {
+            console.log(userTeam['team']);
+            // userTeam[0]['player_id'];
+            $http.post('api/entries', {rank: 0, prize: 0,
+                                      pg_id: userTeam['team'][0].player_id,
+                                      pg_name: userTeam['team'][0].player,
+                                      sg_id: userTeam['team'][1].player_id,
+                                      sg_name: userTeam['team'][1].player,
+                                      sf_id: userTeam['team'][2].player_id,
+                                      sf_name: userTeam['team'][2].player,
+                                      pf_id: userTeam['team'][3].player_id,
+                                      pf_name: userTeam['team'][3].player,
+                                      c_id: userTeam['team'][4].player_id,
+                                      c_name: userTeam['team'][4].player,
+                                      fan_points: 0
+                                      }
+                      )
+            
+
+            // (:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :fan_points)
           }
+
      }
 
 

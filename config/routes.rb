@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :entries
+
+  resources :contests
+
   devise_for :users
   resources :players
 
@@ -13,6 +17,8 @@ Rails.application.routes.draw do
     resources :players, only: [:index, :create, :update, :destroy]
     resources :schedules, only: [:index, :create, :update, :destroy]
     resources :teams, only: [:index, :create, :update, :destroy]
+    resources :contests, only: [:index, :create, :update, :destroy]
+    resources :entries, only: [:index, :create, :update, :destroy]
   end
 
 

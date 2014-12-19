@@ -1,8 +1,35 @@
 
 <div class="container" id="body_main">
-<h1>Welcome</h1>
-<br>
+	<h1>Welcome</h1>
+	<br>
+	
+	<div class="contest_wrapper">
 
-	<a href="/users/sign_up">Sign Up</a>
+		<div class="contest_wrapper">
+			<table class="table table-bordered table-striped table-fixed-header">
+				<thead class="header">
+				<tr>
+					<th>League Type</th>
+					<th>Entries</th>
+					<th>Size</th>
+					<th>Fee</th>
+					<th>Play</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="contest in contests">
+					<td>{{contest.contest_type}}</td>
+					<td>{{contest.players_count}}</td>
+					<td>{{contest.num_players}}</td>
+					<td>{{contest.fee}}</td>
+					<td><a ui-sref="entry({ contest_id: contest._id.$oid })", class="btn btn-success">Enter</a></td>
+				</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</div>
+
 </div>
 

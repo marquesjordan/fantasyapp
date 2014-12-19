@@ -1,0 +1,39 @@
+<h1>Listing entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Prize</th>
+      <th>Pg</th>
+      <th>Sg</th>
+      <th>Sf</th>
+      <th>Pf</th>
+      <th>C</th>
+      <th>Fan points</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= entry.rank %></td>
+        <td><%= entry.prize %></td>
+        <td><%= entry.pg_id %></td>
+        <td><%= entry.sg_id %></td>
+        <td><%= entry.sf_id %></td>
+        <td><%= entry.pf_id %></td>
+        <td><%= entry.c_id %></td>
+        <td><%= entry.fan_points %></td>
+        <td><%= link_to 'Show', entry %></td>
+        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Entry', new_entry_path %>
