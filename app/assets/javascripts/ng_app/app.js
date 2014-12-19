@@ -256,6 +256,8 @@ $urlRouterProvider.otherwise('/about');
       if($scope.userTeams[ut].contest_id == $stateParams.contest_id){
         $scope.gameEntry.push($scope.userTeams[ut]);
       }
+    }
+
   });
 
 })
@@ -323,6 +325,7 @@ $urlRouterProvider.otherwise('/about');
                                       fan_points: 0, contest_id: userTeam['contest']
                                       }
                       ).success(function(){ $location.path('/home') } );
+                        //$location.path('/home') } );
             
 
             // (:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :fan_points)
