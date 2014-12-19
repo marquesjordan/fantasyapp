@@ -10,11 +10,11 @@ class EntriesController < ApplicationController
 
   def create
     entry = Entry.create(entry_params)
-    # if current_user
-    #   entry.user_id = current_user.id
-    # end
+    if current_user
+      entry.user_id = current_user.id
+    end
     
-    # entry.save
+    entry.save
     render json: entry, status: 201
     # redirect_to root_path
   end
