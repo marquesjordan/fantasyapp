@@ -5,18 +5,18 @@ class PlayersController < ApplicationController
   # GET /players.json
   def index
     players = Player.all
-    # render json: players, status: 200
+    render json: players, status: 200
 
-    p = Player.all
-    p.each do |player|
+    # p = Player.all
+    # p.each do |player|
       
-      number = player.fantasy * 238
-      player.cost = (number.floor/100)*100
-      if player.cost < 3500
-        player.cost = 3500
-      end
-      player.save
-    end
+    #   number = player.fantasy * 238
+    #   player.cost = (number.floor/100)*100
+    #   if player.cost < 3500
+    #     player.cost = 3500
+    #   end
+    #   player.save
+    # end
     
     ################# API PULL CODE #############################
     
