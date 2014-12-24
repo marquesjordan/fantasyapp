@@ -21,7 +21,7 @@ class PlayersController < ApplicationController
     ################# API PULL CODE #############################
     
     # @puri = HTTParty.get"http://api.sportsdatallc.org/nba-t3/teams/583ecd4f-fb46-11e1-82cb-f4ce4684ea4c/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
-    @teams.each do |t|
+    # @teams.each do |t|
     teams = Team.all
     @count = teams.length
     
