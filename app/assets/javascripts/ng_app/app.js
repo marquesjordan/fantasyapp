@@ -261,7 +261,7 @@ $urlRouterProvider.otherwise('/about');
   });
 
 }])
-.service('api', ['$http', '$location',function($http, $location) {
+.service('api', ['$http', '$location', function($http, $location) {
      return {
           getPlayers: function() {
 
