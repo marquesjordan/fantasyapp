@@ -5,26 +5,26 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     teams = Team.all
-    # render json: teams, status: 200
+    render json: teams, status: 200
 
 
 
     ################# API PULL CODE #############################
 
-    @teamuri = HTTParty.get"http://api.sportsdatallc.org/nba-t3/seasontd/2014/REG/standings.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
+    # @teamuri = HTTParty.get"http://api.sportsdatallc.org/nba-t3/seasontd/2014/REG/standings.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
 
-    @conf_count = @teamuri['league']['season']['conference'].count
-    @div_count = @teamuri['league']['season']['conference'][0]['division'].count
+    # @conf_count = @teamuri['league']['season']['conference'].count
+    # @div_count = @teamuri['league']['season']['conference'][0]['division'].count
 
-    for a in 0...2
-      for b in 0...3
-        for c in 0...5
-          t_id = @teamuri['league']['season']['conference'][a]['division'][b]['team'][c]['id']
-          t_name = @teamuri['league']['season']['conference'][a]['division'][b]['team'][c]['name']
-          Team.create(nba_team_id: t_id, team_name: t_name)
-        end
-      end  
-    end
+    # for a in 0...2
+    #   for b in 0...3
+    #     for c in 0...5
+    #       t_id = @teamuri['league']['season']['conference'][a]['division'][b]['team'][c]['id']
+    #       t_name = @teamuri['league']['season']['conference'][a]['division'][b]['team'][c]['name']
+    #       Team.create(nba_team_id: t_id, team_name: t_name)
+    #     end
+    #   end  
+    # end
 
   end
 
