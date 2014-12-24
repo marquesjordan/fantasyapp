@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
   # GET /players.json
   def index
     players = Player.all
-    render json: players, status: 200
+    # render json: players, status: 200
 
     # p = Player.all
     # p.each do |player|
@@ -21,9 +21,9 @@ class PlayersController < ApplicationController
     ################# API PULL CODE #############################
     
     # @puri = HTTParty.get"http://api.sportsdatallc.org/nba-t3/teams/583ecd4f-fb46-11e1-82cb-f4ce4684ea4c/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
-    # @teams.each do |t|
-    # teams = Team.all
-    # @count = teams.length
+    @teams.each do |t|
+    teams = Team.all
+    @count = teams.length
     
     ####################### CALLING API FOR TEAM STATS & PLAYER INFO ########################
 
@@ -72,33 +72,33 @@ class PlayersController < ApplicationController
 
     ####################### CALLING API FOR JUST ROSTER ########################
 
-    # for i in 0...@count
-    #   tid = teams[i].nba_team_id
+    for i in 0...@count
+      tid = teams[i].nba_team_id
       
     
-    #   @url = "http://api.sportsdatallc.org/nba-t3/teams/#{tid}/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
+      @url = "http://api.sportsdatallc.org/nba-t3/teams/#{tid}/profile.xml?api_key=3jdhu8c22zst6mn3p6fajnze"
 
-    #   @response_array = []
+      @response_array = []
       
-    #   begin   # raisebegin
-    #      @puri = HTTParty.get(@url)
-    #      @count = @puri['team']['players']['player'].count
-    #   rescue
-    #     sleep 1
-    #     @puri = HTTParty.get(@url)
-    #   ensure 
+      begin   # raisebegin
+         @puri = HTTParty.get(@url)
+         @count = @puri['team']['players']['player'].count
+      rescue
+        sleep 1
+        @puri = HTTParty.get(@url)
+      ensure 
        
-    #   end
+      end
       
-    #    team_count = @puri['team']['players']['player'].count
-    #      for x in 0...team_count
-    #        pid = @puri['team']['players']['player'][x]['id']
-    #        name = @puri['team']['players']['player'][x]['full_name']
-    #        pos = @puri['team']['players']['player'][x]['primary_position']
-    #        Player.create(player_id: pid, team_id: tid, name: name, position: pos)
+       team_count = @puri['team']['players']['player'].count
+         for x in 0...team_count
+           pid = @puri['team']['players']['player'][x]['id']
+           name = @puri['team']['players']['player'][x]['full_name']
+           pos = @puri['team']['players']['player'][x]['primary_position']
+           Player.create(player_id: pid, team_id: tid, name: name, position: pos)
           
-    #      end
-    # end
+         end
+    end
     #raise @response_array.inspect
   end
 
