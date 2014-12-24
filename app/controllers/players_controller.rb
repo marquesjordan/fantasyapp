@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
   # GET /players.json
   def index
     players = Player.all
-    render json: players, status: 200
+    # render json: players, status: 200
 
     # p = Player.all
     # p.each do |player|
