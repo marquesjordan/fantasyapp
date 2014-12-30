@@ -3,12 +3,14 @@
 <div class="container" id="body_main">
 	<h2 id="leauge">League Title</h2>
 	<p>Entries: 0 / 57464  Entry fee: $25.00 Prize: $150,000<p>
+
 	<div id="games_wrapper">
 		<div id="games" ng-repeat="schedule in today_schedule">
 
 			<div id="game_blocks">
 				<p>{{schedule.away_name}}</p>
 				<p>{{schedule.home_name}}</p>
+				<p>{{schedule.time}}</p>
 			</div>
 
 		</div>
