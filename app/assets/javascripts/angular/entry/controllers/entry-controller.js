@@ -2,6 +2,28 @@ angular.module('spaApp')
 
 .controller('entryController', ['$scope', 'api', '$stateParams',function($scope, api, $stateParams) {
 
+  api.getPlayers()
+  .then(function(data){
+    $scope.players = data.data;
+  });
+
+  api.getEntries()
+  .then(function(data){
+    $scope.userTeams = data.data;
+    //console.log($scope.userTeams);
+    // $stateParams.contest_id
+    $scope.gameEntry = [];
+
+    for(var ut=0;ut<$scope.userTeams.length;ut++){
+      if($scope.userTeams[ut].contest_id == $stateParams.contest_id){
+        $scope.gameEntry.push($scope.userTeams[ut]);
+      }
+    }
+    $scope.gameEntryCount = $scope.gameEntry.length;
+  });
+
+
+
   // JSON api call to get response from database of the days fantasy competitions.
   api.getContests()
   .then(function(data){
@@ -25,17 +47,18 @@ angular.module('spaApp')
       if($scope.contests[k].contest_date.split('T')[0] == newdate){
         $scope.todaysContests.push($scope.contests[k]);
       }
+      // console.log($scope.contests[k]._id.$oid);
+      // console.log($stateParams.contest_id);
+      if($scope.contests[k]._id.$oid == $stateParams.contest_id ){
+        $scope.totalPlayersAllowed = $scope.contests[k].num_players;
+        $scope.contestFee = $scope.contests[k].fee
+      }
     }
   });
 
 
 
   $scope.today_schedule = [];
-
-  api.getPlayers()
-  .then(function(data){
-    $scope.players = data.data;
-  });
 
   api.getSchedules()
   .then(function(data){
@@ -71,7 +94,7 @@ angular.module('spaApp')
       var gm_time = new_hr + ":" + min + ampm;
 
 
-      console.log(game_d.getTime());
+      //console.log(game_d.getTime());
 
       
 
@@ -93,11 +116,11 @@ angular.module('spaApp')
     
     $scope.today_size = $scope.today_teams.length
 
-    api.getPlayers()
-    .then(function(data2){
+    // api.getPlayers()
+    // .then(function(data2){
       
-      $scope.players = data2.data;
-    });
+    //   $scope.players = data2.data;
+    // });
 
     for(var x = 0; x < $scope.today_size; x++){
 
@@ -110,9 +133,6 @@ angular.module('spaApp')
       }
     }
 
-    //console.log($scope.todays_players[0]);
-  });
-  
   api.getTeams()
   .then(function(data){
     $scope.teams = data.data;
@@ -138,15 +158,20 @@ angular.module('spaApp')
   });
 
 
+    //console.log($scope.todays_players[0]);
+  });
+  
+
   $scope.myTeam = [
     {player_id: 0, player: "Empty", position: "PG", cost: 0},
     {player_id: 0, player: "Empty", position: "SG", cost: 0},
     {player_id: 0, player: "Empty", position: "SF", cost: 0},
     {player_id: 0, player: "Empty", position: "PF", cost: 0},
-    {player_id: 0, player: "Empty", position: "C", cost: 0}
+    {player_id: 0, player: "Empty", position: "C", cost: 0},
+    {player_id: 0, player: "Empty", position: "6TH MAN", cost: 0}
   ];
   $scope.teamCost = 0;
-  $scope.salary = 35000;
+  $scope.salary = 45000;
   $scope.positionType = ["All", "PG", "SG", "SF", "PF", "C"];
 
   $scope.setPosFilter = function(x){
@@ -185,8 +210,13 @@ angular.module('spaApp')
       $scope.teamCost += thisCell.cost;
       $scope.salary -= thisCell.cost;
       //console.log($scope.myTeam);
-    }
-    else {
+    }else if($scope.myTeam[5].player == "Empty"){
+      $scope.myTeam[5].player_id = thisCell.player_id;
+      $scope.myTeam[5].player = thisCell.name;
+      $scope.myTeam[5].cost = thisCell.cost;
+      $scope.teamCost += thisCell.cost;
+      $scope.salary -= thisCell.cost;
+    }else {
       console.log("Position Taken!!!");
     }
 
@@ -219,6 +249,16 @@ angular.module('spaApp')
     }else{
       api.createEntry(userTeam);
       // $location.path('/home');
+    }
+  }
+
+  $scope.clearAll = function(){
+    for(var k = 0; k<6;k++){
+      $scope.myTeam[k].player_id = 0;
+      $scope.myTeam[k].player = "Empty";
+      $scope.teamCost -= $scope.myTeam[k].cost;
+      $scope.salary = $scope.salary + $scope.myTeam[k].cost;
+      $scope.myTeam[k].cost = 0;
     }
   }
 

@@ -51,16 +51,18 @@
 }
 
 body{
-	background-image: url(../assets/bball.jpg);
+	// background-image: url(../assets/bball.jpg);
+	background-image: url(../assets/ball-court.jpg);
 	background-repeat:no-repeat;
   background-size:cover;
 }
 
 #body_main{
 	background-color: #F3F6FF;
-
+	// background-color: rgba(255, 255, 255,0.8);
 	margin-top: 70px;
 	height: 1100px;
+	width: 1200px !important;
 }
 
 #about_main{
@@ -136,11 +138,24 @@ body{
 	text-align: center;
 
 }
+.trow {display: block; }
+.table_main { width: 135px; }
+#tbody { 
+	display: block; 
+	height: 600px; 
+	overflow: auto;
+}
 
 #game_blocks{
 	margin: 0 auto;
 	width: 100px;
 	float: left;
+}
+.right{
+	float: right;
+}
+#clearAll{
+	color: blue;
 }
 // .logs {
 // 	background-image: url(../assets/fans.jpg)

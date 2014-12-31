@@ -11,7 +11,7 @@ $urlRouterProvider.otherwise('/about');
             controller: 'homeController'
         })
         .state('entry', {
-            url: '/entry/:contest_id/:userid',
+            url: '/entry/:contest_id',
             templateUrl: 'entry.html',
             controller: 'entryController'
         })

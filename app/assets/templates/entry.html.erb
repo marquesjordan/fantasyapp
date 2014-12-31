@@ -2,7 +2,7 @@
 
 <div class="container" id="body_main">
 	<h2 id="leauge">League Title</h2>
-	<p>Entries: 0 / 57464  Entry fee: $25.00 Prize: $150,000<p>
+	<p>Entries: {{gameEntryCount}} / {{totalPlayersAllowed}}  Entry fee: ${{contestFee}} Prize: $150,000<p>
 
 	<div id="games_wrapper">
 		<div id="games" ng-repeat="schedule in today_schedule">
@@ -17,7 +17,7 @@
 	</div>
 	<br><br>
 	<div class="row">
-		<div class="col-md-7">
+		<div class="col-xs-7">
 
 				<h3>Available Players</h3>
 				
@@ -33,25 +33,25 @@
 					</div><br><br>
 			
 			
-			<div class="wrapper" id="main_wrapper">
+			<div>
 				<table class="table table-bordered table-striped table-fixed-header" id="main_table">
 					<thead class="header">
-					<tr>
-						<th>Name</th>
-						<th>Pos</th>
-						<th>Fan Avg</th>
-						<th>Cost</th>
-						<th>Select</th>
-					</tr>
+						<tr class="trow">
+							<th class="table_main" data-sortable="true">Name</th>
+							<th class="table_main">Pos</th>
+							<th class="table_main" data-sortable="true">Fan Avg</th>
+							<th class="table_main" data-sortable="true">Cost</th>
+							<th class="table_main">Select</th>
+						</tr>
 					</thead>
-					<tbody>
-					<tr ng-repeat="player in todays_players | filter:{name:search, position:filterPos} | orderBy: 'fantasy':true" x-ng-class="">
-						<td>{{player.name}}</td>
-						<td>{{player.position}}</td>
-						<td>{{player.fantasy}}</td>
-						<td>{{player.cost | number}}</td>
-						<td><button ng-click="picks(player, $index)" class="btn btn-primary">+</button></td>
-					</tr>
+					<tbody id="tbody">
+						<tr class="trow" ng-repeat="player in todays_players | filter:{name:search, position:filterPos} | orderBy: 'fantasy':true" x-ng-class="">
+							<td class="table_main">{{player.name}}</td>
+							<td class="table_main">{{player.position}}</td>
+							<td class="table_main">{{player.fantasy}}</td>
+							<td class="table_main">{{player.cost | number}}</td>
+							<td class="table_main"><button ng-click="picks(player, $index)" class="btn btn-primary">+</button></td>
+						</tr>
 					</tbody>
 				</table>
 			</div> <!-- End of "wrapper" -->
@@ -62,7 +62,7 @@
 		
 		
 		
-		<div class="col-md-5">
+		<div class="col-xs-5">
 			<h3>Your Lineup</h3>
 			<p id="salary" ng-model="user.cost">${{salary | number}}</p>
 			<p>Salary Remaining</p>
@@ -80,9 +80,6 @@
 								<td ><p class="p_details">{{myplayer.player}}</p></td>
 								<td>{{myplayer.position}}</td>
 								<td>{{myplayer.cost | number}}</td>
-<!-- 								<div>
-									<button ng-hide="myplayer.position != 'Empty'" ng-click="removePick(myplayer, $index)" class="btn btn-danger">-</button>
-								</div> -->
 								<td ng-show="position != 'Empty'">
 									<button ng-click="removePick(myplayer, $index)" class="btn btn-danger">-</button>
 								</td>
@@ -91,7 +88,9 @@
 							</tr>
 						</table>
 					</div>
-					<div class="panel-footer"><button ng-click="addEntry()" class="btn btn-success">Submit Team</div>
+					<div class="panel-footer"><button ng-click="addEntry()" class="btn btn-success">Submit Team</button>
+					<span class="right"><p id="clearAll" ng-click="clearAll()">Clear All</p></span>
+					</div>
 
 				</div>
 
