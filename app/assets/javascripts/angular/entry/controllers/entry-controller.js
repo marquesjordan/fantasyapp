@@ -2,6 +2,8 @@ angular.module('spaApp')
 
 .controller('entryController', ['$scope', 'api', '$stateParams',function($scope, api, $stateParams) {
 
+  $scope.loading = [];
+
   api.getPlayers()
   .then(function(data){
     $scope.players = data.data;
@@ -116,17 +118,12 @@ angular.module('spaApp')
     
     $scope.today_size = $scope.today_teams.length
 
-    // api.getPlayers()
-    // .then(function(data2){
-      
-    //   $scope.players = data2.data;
-    // });
-
     for(var x = 0; x < $scope.today_size; x++){
 
       for(var p = 0; p < $scope.players.length; p++){
 
         if($scope.players[p].team_id == $scope.today_teams[x]){
+          // var playerObj = {info: $scope.players[p], selected: "+" };
           $scope.todays_players.push($scope.players[p]);  
         }
 
@@ -136,9 +133,7 @@ angular.module('spaApp')
   api.getTeams()
   .then(function(data){
     $scope.teams = data.data;
-    //console.log(data.data[0]);
-    //console.log($scope.teams[0]);
-    //console.log($scope.today_schedule[0]);
+
 
     for(var ts = 0; ts < $scope.today_schedule.length; ts++ ){
       name_search1 = $scope.today_schedule[ts]['away'];
@@ -163,12 +158,12 @@ angular.module('spaApp')
   
 
   $scope.myTeam = [
-    {player_id: 0, player: "Empty", position: "PG", cost: 0},
-    {player_id: 0, player: "Empty", position: "SG", cost: 0},
-    {player_id: 0, player: "Empty", position: "SF", cost: 0},
-    {player_id: 0, player: "Empty", position: "PF", cost: 0},
-    {player_id: 0, player: "Empty", position: "C", cost: 0},
-    {player_id: 0, player: "Empty", position: "6TH MAN", cost: 0}
+    {player_id: 0, player: "Add Player", position: "PG", cost: 0, pic: ""},
+    {player_id: 0, player: "Add Player", position: "SG", cost: 0, pic: ""},
+    {player_id: 0, player: "Add Player", position: "SF", cost: 0, pic: ""},
+    {player_id: 0, player: "Add Player", position: "PF", cost: 0, pic: ""},
+    {player_id: 0, player: "Add Player", position: "C", cost: 0, pic: ""},
+    {player_id: 0, player: "Add Player", position: "6TH MAN", cost: 0, pic: ""}
   ];
   $scope.teamCost = 0;
   $scope.salary = 45000;
@@ -177,7 +172,7 @@ angular.module('spaApp')
   $scope.setPosFilter = function(x){
     $scope.filterPos = (x=="All"?"" : x);
   };
-
+  $scope.selectedPlayer = [];
   $scope.picks = function(thisCell, num) {
     // //console.log(thisCell);
     //console.log(num);
@@ -202,29 +197,46 @@ angular.module('spaApp')
       //console.log("Center");
       $scope.pos = 4;
     }
+    
+    var strname = thisCell.name
+    strname = strname.replace(".", "");
+    strname = strname.replace(".", "");
 
-    if($scope.myTeam[$scope.pos].player == "Empty"){
+    var pname = strname.split(" ");
+    var webname = pname[0] + "_" + pname[1];
+    $scope.webpic = "http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/statscube/players/large/" + webname + ".png";
+
+    if($scope.myTeam[$scope.pos].player == "Add Player"){
       $scope.myTeam[$scope.pos].player_id = thisCell.player_id;
       $scope.myTeam[$scope.pos].player = thisCell.name;
       $scope.myTeam[$scope.pos].cost = thisCell.cost;
+
+      $scope.myTeam[$scope.pos].pic = $scope.webpic;
+      $scope.loading[$scope.pos] = true;
       $scope.teamCost += thisCell.cost;
       $scope.salary -= thisCell.cost;
-      //console.log($scope.myTeam);
-    }else if($scope.myTeam[5].player == "Empty"){
+      
+    }else if($scope.myTeam[$scope.pos].player_id == thisCell.player_id ){
+      alert("Player Used Already!");
+    }else if($scope.myTeam[5].player == "Add Player"){
       $scope.myTeam[5].player_id = thisCell.player_id;
       $scope.myTeam[5].player = thisCell.name;
       $scope.myTeam[5].cost = thisCell.cost;
+      $scope.myTeam[5].pic = $scope.webpic;
+      $scope.loading[5] = true;
       $scope.teamCost += thisCell.cost;
       $scope.salary -= thisCell.cost;
     }else {
       console.log("Position Taken!!!");
     }
-
+    console.log($scope.myTeam);
   }
 
   $scope.removePick = function(thisCell, num){
     $scope.myTeam[num].player_id = 0;
-    $scope.myTeam[num].player = "Empty";
+    $scope.myTeam[num].player = "Add Player";
+    $scope.myTeam[num].pic = "";
+    $scope.loading[num] = false;
     //console.log(thisCell.cost, num)
     $scope.teamCost -= thisCell.cost;
     $scope.salary = $scope.salary + thisCell.cost;
@@ -235,7 +247,7 @@ angular.module('spaApp')
     var userTeam = { team: $scope.myTeam, contest: $stateParams.contest_id };
     // Post at a endpoint
     var checkPoint = 0;
-    for(var check=0;check<5;check++){
+    for(var check=0;check<6;check++){
       if($scope.myTeam[check].player_id == 0){
         checkPoint = 1;
       }
@@ -255,7 +267,8 @@ angular.module('spaApp')
   $scope.clearAll = function(){
     for(var k = 0; k<6;k++){
       $scope.myTeam[k].player_id = 0;
-      $scope.myTeam[k].player = "Empty";
+      $scope.myTeam[k].player = "Add Player";
+      $scope.myTeam[k].pic = "";
       $scope.teamCost -= $scope.myTeam[k].cost;
       $scope.salary = $scope.salary + $scope.myTeam[k].cost;
       $scope.myTeam[k].cost = 0;

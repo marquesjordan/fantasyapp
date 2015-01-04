@@ -36,7 +36,7 @@
 			<div>
 				<table class="table table-bordered table-striped table-fixed-header" id="main_table">
 					<thead class="header">
-						<tr class="trow">
+						<tr class="trow" >
 							<th class="table_main" data-sortable="true">Name</th>
 							<th class="table_main">Pos</th>
 							<th class="table_main" data-sortable="true">Fan Avg</th>
@@ -45,7 +45,7 @@
 						</tr>
 					</thead>
 					<tbody id="tbody">
-						<tr class="trow" ng-repeat="player in todays_players | filter:{name:search, position:filterPos} | orderBy: 'fantasy':true" x-ng-class="">
+						<tr class="trow" ng-repeat="player in todays_players | filter:{name:search, position:filterPos} | orderBy: 'fantasy' :true" x-ng-class="">
 							<td class="table_main">{{player.name}}</td>
 							<td class="table_main">{{player.position}}</td>
 							<td class="table_main">{{player.fantasy}}</td>
@@ -69,7 +69,23 @@
 			<div class="wrapper">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<table class="table">
+						<ul ng-repeat="myplayer in myTeam">
+							
+							<li class="team">
+								<div id="picture"><img src="{{myplayer.pic}}" height="72" width="82" ></div>
+								<div id="position">{{myplayer.position}}</div> 
+								<div id="playername">{{myplayer.player}}</div>
+								<div id="cost" ng-show="loading[$index]">{{myplayer.cost | number}} <button ng-click="removePick(myplayer, $index)" class="btn btn-danger">-</button></div>
+								
+								
+								<!-- <div id="playerpos">
+									
+									<p>team vs team</p>
+								</div> -->
+							</li>
+
+						</ul>
+<!-- 						<table class="table">
 							<tr>
 								<th>Name</th>
 								<th>Position</th>
@@ -77,7 +93,7 @@
 								<th>Remove</th>
 							</tr>
 							<tr ng-repeat="myplayer in myTeam" class="rows">
-								<td ><p class="p_details">{{myplayer.player}}</p></td>
+								<td ><img src="{{myplayer.pic}}" height="72" width="72" ><p class="p_details">{{myplayer.player}}</p></td>
 								<td>{{myplayer.position}}</td>
 								<td>{{myplayer.cost | number}}</td>
 								<td ng-show="position != 'Empty'">
@@ -86,7 +102,7 @@
 
 
 							</tr>
-						</table>
+						</table> -->
 					</div>
 					<div class="panel-footer"><button ng-click="addEntry()" class="btn btn-success">Submit Team</button>
 					<span class="right"><p id="clearAll" ng-click="clearAll()">Clear All</p></span>

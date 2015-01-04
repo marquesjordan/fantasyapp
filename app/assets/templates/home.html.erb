@@ -2,6 +2,10 @@
 <div class="container" id="body_main">
 	<h1>Welcome</h1>
 	<br>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+	  Create Contest
+	</button><br>
 	
 	<div class="contest_wrapper">
 
@@ -33,5 +37,48 @@
 
 	</div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Contest</h4>
+      </div>
+      <div class="modal-body" id="contestWrapper">
+				<form class="form-horizontal" id="createContest">
+
+				  <div class="form-group">
+				  	<label for="exampleInputEmail1">Contest Type</label>
+						<select class="form-control" ng-model="challenge">
+							<option value="0">Tournament Challenge</option>
+						  <option value="1">50/50 League</option>
+						</select>
+				  </div>
+
+				  <div class="form-group">
+				    <label for="inputEntryNumber">Contest Size</label>
+				    <input type="text" class="form-control" id="inputEntryNumber" placeholder="Max # of Entries" ng-model="c_size">
+				  </div>
+
+				  <div class="form-group">
+				     <label for="exampleInputAmount">Amount (in dollars)</label>
+				    <div class="input-group">
+				      <div class="input-group-addon">$</div>
+				      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" ng-model="amount">
+				      <div class="input-group-addon">.00</div>
+				    </div>
+				  </div>
+
+				</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="addContest()">Submit</button>
+      </div>
+    </div>
+  </div>
 </div>
 

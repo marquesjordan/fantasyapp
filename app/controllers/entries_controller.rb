@@ -46,6 +46,6 @@ class EntriesController < ApplicationController
     end
 
     def entry_params
-      params.require(:entry).permit(:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :fan_points, :user_id, :contest_id)
+      params.require(:entry).permit(:rank, :prize, :pg_id, :sg_id, :sf_id, :pf_id, :c_id, :sixth_id, :pg_name, :sg_name, :sf_name, :pf_name, :c_name, :sixth_name, :fan_points, :user_id, :contest_id)
     end
 end

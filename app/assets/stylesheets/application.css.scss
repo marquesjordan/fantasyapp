@@ -157,6 +157,64 @@ body{
 #clearAll{
 	color: blue;
 }
+
+#createContest{
+	max-width: 80%;
+}
+
+div form{
+	margin: 0 auto;
+}
+ul{
+	list-style-type: none;
+	padding: 0px;
+  margin: 0px;
+
+}
+.team{
+	// position: relative;
+	height: 72px;
+	margin-bottom: 5px;
+	border: 1px solid grey;
+
+
+}
+
+#picture{
+	// position: absolute;
+	width: 82px;
+	float: left;
+	// width: 200px;
+}
+#position{
+	margin-left: 5px;
+	margin-top: 10px;
+	width: 30px;
+	float: left;
+	font-size: 14pt;
+	color: grey;
+}
+#playername{
+	// width: 450px;
+	margin-left: 20px;
+	margin-top: 10px;
+	font-size: 14pt;
+	width: 180px;
+	float: left;	
+	color: blue;
+}
+#cost{
+	width: 120px;
+	float: right;
+	font-size: 14pt;
+	text-align: right;
+}
+
+#rmv{
+	width: 20px;
+	float: right;
+}
+
 // .logs {
 // 	background-image: url(../assets/fans.jpg)
 // }

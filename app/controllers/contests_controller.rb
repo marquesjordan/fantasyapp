@@ -11,12 +11,8 @@ class ContestsController < ApplicationController
 
   def create
     contest = Contest.create(contest_params)
-    if contest.contest_type == 0
-      contest.description = "50/50 League"
-    elsif contest.contest_type == 1
-      contest.description = "Tournament"
-    end
-    contest.save
+    
+    # contest.save
     render json: contest, status: 201
   end
 
