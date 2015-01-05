@@ -3,6 +3,7 @@ angular.module('spaApp')
 .controller('entryController', ['$scope', 'api', '$stateParams',function($scope, api, $stateParams) {
 
   $scope.loading = [];
+  $scope.selections = {};
 
   api.getPlayers()
   .then(function(data){
@@ -123,6 +124,9 @@ angular.module('spaApp')
       for(var p = 0; p < $scope.players.length; p++){
 
         if($scope.players[p].team_id == $scope.today_teams[x]){
+          $scope.players[p].name = $scope.players[p].name.replace(/'/g, "");
+          $scope.selections[$scope.players[p].name] = false;
+          //console.log($scope.selections);
           // var playerObj = {info: $scope.players[p], selected: "+" };
           $scope.todays_players.push($scope.players[p]);  
         }
@@ -158,12 +162,12 @@ angular.module('spaApp')
   
 
   $scope.myTeam = [
-    {player_id: 0, player: "Add Player", position: "PG", cost: 0, pic: ""},
-    {player_id: 0, player: "Add Player", position: "SG", cost: 0, pic: ""},
-    {player_id: 0, player: "Add Player", position: "SF", cost: 0, pic: ""},
-    {player_id: 0, player: "Add Player", position: "PF", cost: 0, pic: ""},
-    {player_id: 0, player: "Add Player", position: "C", cost: 0, pic: ""},
-    {player_id: 0, player: "Add Player", position: "6TH MAN", cost: 0, pic: ""}
+    {player_id: 0, player: "Add Player", position: "PG", cost: 0, pic: "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png"},
+    {player_id: 0, player: "Add Player", position: "SG", cost: 0, pic: "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png"},
+    {player_id: 0, player: "Add Player", position: "SF", cost: 0, pic: "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png"},
+    {player_id: 0, player: "Add Player", position: "PF", cost: 0, pic: "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png"},
+    {player_id: 0, player: "Add Player", position: "C", cost: 0, pic: "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png"},
+    {player_id: 0, player: "Add Player", position: "6TH MAN", cost: 0, pic: "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png"}
   ];
   $scope.teamCost = 0;
   $scope.salary = 45000;
@@ -202,6 +206,7 @@ angular.module('spaApp')
     strname = strname.replace(".", "");
     strname = strname.replace(".", "");
 
+
     var pname = strname.split(" ");
     var webname = pname[0] + "_" + pname[1];
     $scope.webpic = "http://i.cdn.turner.com/nba/nba/.element/img/2.0/sect/statscube/players/large/" + webname + ".png";
@@ -213,6 +218,9 @@ angular.module('spaApp')
 
       $scope.myTeam[$scope.pos].pic = $scope.webpic;
       $scope.loading[$scope.pos] = true;
+
+      $scope.selections[thisCell.name] = true;
+      console.log($scope.selections[thisCell.name]);
       $scope.teamCost += thisCell.cost;
       $scope.salary -= thisCell.cost;
       
@@ -224,6 +232,7 @@ angular.module('spaApp')
       $scope.myTeam[5].cost = thisCell.cost;
       $scope.myTeam[5].pic = $scope.webpic;
       $scope.loading[5] = true;
+      $scope.selections[thisCell.name] = true;
       $scope.teamCost += thisCell.cost;
       $scope.salary -= thisCell.cost;
     }else {
@@ -232,11 +241,42 @@ angular.module('spaApp')
     console.log($scope.myTeam);
   }
 
+  $scope.dropPick = function(thisCell){
+    $scope.selections[thisCell.name] = false;
+    var teamPos;
+    var numRmv;
+
+    if(thisCell.position == "PG"){ teamPos = 0; }
+    else if(thisCell.position == "SG"){ teamPos = 1; }
+    else if(thisCell.position == "SF"){ teamPos = 2; }
+    else if(thisCell.position == "PF"){ teamPos = 3; }
+    else if(thisCell.position == "C"){ teamPos = 4; }
+
+    if($scope.myTeam[teamPos].player == thisCell.name){
+      numRmv = teamPos;
+    }else{
+      numRmv = 5;
+    }
+
+
+    $scope.myTeam[numRmv].player_id = 0;
+    $scope.myTeam[numRmv].player = "Add Player";
+    $scope.myTeam[numRmv].pic = "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png";
+    // loading is for the ng-show of the button
+    $scope.loading[numRmv] = false;
+    $scope.teamCost -= thisCell.cost;
+    $scope.salary = $scope.salary + thisCell.cost;
+    $scope.myTeam[numRmv].cost = 0;
+
+  }
+
   $scope.removePick = function(thisCell, num){
+    $scope.selections[thisCell.player] = false;
     $scope.myTeam[num].player_id = 0;
     $scope.myTeam[num].player = "Add Player";
-    $scope.myTeam[num].pic = "";
+    $scope.myTeam[num].pic = "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png";
     $scope.loading[num] = false;
+
     //console.log(thisCell.cost, num)
     $scope.teamCost -= thisCell.cost;
     $scope.salary = $scope.salary + thisCell.cost;
@@ -267,8 +307,10 @@ angular.module('spaApp')
   $scope.clearAll = function(){
     for(var k = 0; k<6;k++){
       $scope.myTeam[k].player_id = 0;
+      $scope.selections[$scope.myTeam[k].player] = false;
+      $scope.loading[k] = false;
       $scope.myTeam[k].player = "Add Player";
-      $scope.myTeam[k].pic = "";
+      $scope.myTeam[k].pic = "http://www.nationmaster.com/static/nm_app/pix/default-avatar.png";
       $scope.teamCost -= $scope.myTeam[k].cost;
       $scope.salary = $scope.salary + $scope.myTeam[k].cost;
       $scope.myTeam[k].cost = 0;
