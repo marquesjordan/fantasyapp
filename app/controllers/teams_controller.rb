@@ -5,8 +5,8 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     teams = Team.all
-    # @nba = Team.all
-    render json: teams, status: 200
+    @nba = Team.all
+    # render json: teams, status: 200
 
     ################# API PULL CODE #############################
 
@@ -32,15 +32,15 @@ class TeamsController < ApplicationController
     render json: team, status: 201
   end
 
-  # def edit
-  #   @team = Team.find(params[:id])
-  # end
+  def edit
+    @team = Team.find(params[:id])
+  end
 
   def update
     team = Team.find(params[:id])
     team.update_attributes(team_params)
-    # redirect_to teams_path
-    render nothing: true, status: 204
+    redirect_to teams_path
+    # render nothing: true, status: 204
   end
 
   def destroy
