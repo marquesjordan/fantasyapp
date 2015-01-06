@@ -116,8 +116,63 @@ angular.module('spaApp')
       }
     }
 
+    api.getTeams()
+      .then(function(data){
+        $scope.teams = data.data;
+
+
+        for(var ts = 0; ts < $scope.today_schedule.length; ts++ ){
+          name_search1 = $scope.today_schedule[ts]['away'];
+          name_search2 = $scope.today_schedule[ts]['home'];
+
+          for(var find_name = 0; find_name < $scope.teams.length; find_name++){
+
+            if(name_search1 == $scope.teams[find_name].nba_team_id){
+              $scope.today_schedule[ts]['away_name'] = $scope.teams[find_name].short_name;
+            }
+            if(name_search2 == $scope.teams[find_name].nba_team_id){
+              $scope.today_schedule[ts]['home_name'] = '@ ' + $scope.teams[find_name].short_name;
+            }
+          }
+        }
+
+    });
+
+    // $scope.getShortName = function(teamId){
+    //   for(var tsn = 0; tsn < $scope.teams.length; tsn++){
+    //     if(teamId == $scope.teams[tsn].nba_team_id){
+    //       var teamShort = $scope.teams[tsn].short_name;
+    //     }
+    //   }
+    //   return teamShort;
+    // };
     
-    $scope.today_size = $scope.today_teams.length
+
+    $scope.today_size = $scope.today_teams.length;
+
+    $scope.getPlayerGame = function(playerTeamId){
+      for(var pti = 0; pti < $scope.today_schedule.length; pti++ ){
+        teamSearch1 = $scope.today_schedule[pti]['away'];
+        teamSearch2 = $scope.today_schedule[pti]['home'];
+
+
+        if(playerTeamId == teamSearch1){
+          gameObj = {
+                      playerTeam: $scope.today_schedule[pti]['home_name'], 
+                      oppTeam: $scope.today_schedule[pti]['away_name'],
+                      playerLoc: "home" 
+                    };
+        } else if(playerTeamId == teamSearch2){
+          gameObj = {
+                      playerTeam: $scope.today_schedule[pti]['away_name'], 
+                      oppTeam: $scope.today_schedule[pti]['home_name'],
+                      playerLoc: "away"  
+                    };
+        } 
+      }
+      console.log(gameObj);
+      return gameObj;
+    };
 
     for(var x = 0; x < $scope.today_size; x++){
 
@@ -126,38 +181,17 @@ angular.module('spaApp')
         if($scope.players[p].team_id == $scope.today_teams[x]){
           $scope.players[p].name = $scope.players[p].name.replace(/'/g, "");
           $scope.selections[$scope.players[p].name] = false;
-          //console.log($scope.selections);
-          // var playerObj = {info: $scope.players[p], selected: "+" };
+          
+          var playerGame = $scope.getPlayerGame($scope.players[p].team_id);
+          // if (playerGame['player'] == "home") {
+          //   var gameStr = playerGame[]
+          // }
           $scope.todays_players.push($scope.players[p]);  
         }
 
       }
     }
 
-  api.getTeams()
-  .then(function(data){
-    $scope.teams = data.data;
-
-
-    for(var ts = 0; ts < $scope.today_schedule.length; ts++ ){
-      name_search1 = $scope.today_schedule[ts]['away'];
-      name_search2 = $scope.today_schedule[ts]['home'];
-      for(var find_name = 0; find_name < $scope.teams.length; find_name++){
-        if(name_search1 == $scope.teams[find_name].nba_team_id){
-          $scope.today_schedule[ts]['away_name'] = $scope.teams[find_name].team_name;
-        }
-        if(name_search2 == $scope.teams[find_name].nba_team_id){
-          $scope.today_schedule[ts]['home_name'] = '@ ' + $scope.teams[find_name].team_name;
-        }
-      }
-    }
-    //console.log($scope.today_schedule[0]);
-
-
-  });
-
-
-    //console.log($scope.todays_players[0]);
   });
   
 

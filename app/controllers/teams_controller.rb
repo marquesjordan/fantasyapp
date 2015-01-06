@@ -5,9 +5,8 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     teams = Team.all
+    # @nba = Team.all
     render json: teams, status: 200
-
-
 
     ################# API PULL CODE #############################
 
@@ -33,9 +32,14 @@ class TeamsController < ApplicationController
     render json: team, status: 201
   end
 
+  # def edit
+  #   @team = Team.find(params[:id])
+  # end
+
   def update
     team = Team.find(params[:id])
     team.update_attributes(team_params)
+    # redirect_to teams_path
     render nothing: true, status: 204
   end
 
@@ -53,6 +57,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:nba_team_id, :team_name)
+      params.require(:team).permit(:nba_team_id, :team_name, :short_name)
     end
 end

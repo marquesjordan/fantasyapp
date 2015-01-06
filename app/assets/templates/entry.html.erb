@@ -8,9 +8,7 @@
 		<div id="games" ng-repeat="schedule in today_schedule">
 
 			<div id="game_blocks">
-				<p>{{schedule.away_name}}</p>
-				<p>{{schedule.home_name}}</p>
-				<p>{{schedule.time}}</p>
+				<p>{{schedule.away_name}}<br>{{schedule.home_name}}<br>{{schedule.time}}</p>
 			</div>
 
 		</div>
@@ -33,24 +31,24 @@
 					</div><br><br>
 			
 			
-			<div>
-				<table class="table table-bordered table-striped table-fixed-header" id="main_table">
+			<div class="wrapper">
+				<table class="table table-condensed table-fixed-header" id="main_table">
 					<thead class="header">
 						<tr class="trow" >
-							<th class="table_main" data-sortable="true">Name</th>
-							<th class="table_main">Pos</th>
-							<th class="table_main" data-sortable="true">Fan Avg</th>
+							<th class="table_small">Pos</th>
+							<th class="table_big" data-sortable="true">Name</th>
+							<th class="table_big" data-sortable="true">Fan Avg</th>
 							<th class="table_main" data-sortable="true">Cost</th>
-							<th class="table_main">Select</th>
+							<th class="table_small">Select</th>
 						</tr>
 					</thead>
 					<tbody id="tbody">
 						<tr class="trow" ng-repeat="player in todays_players | filter:{name:search, position:filterPos} | orderBy: 'fantasy' :true" x-ng-class="{success: selections['{{player.name}}']}">
-							<td class="table_main">{{player.name}}</td>
-							<td class="table_main">{{player.position}}</td>
-							<td class="table_main">{{player.fantasy}}</td>
+							<td class="table_small">{{player.position}}</td>
+							<td class="table_big">{{player.name}}</td>
+							<td class="table_big">{{player.fantasy}}</td>
 							<td class="table_main">{{player.cost | number}}</td>
-							<td class="table_main"><button ng-hide="selections['{{player.name}}']" ng-click="picks(player, $index)" class="btn btn-primary">+</button><button ng-show="selections['{{player.name}}']" ng-click="dropPick(player)" class="btn btn-danger">-</button></td>
+							<td class="table_small"><button ng-hide="selections['{{player.name}}']" ng-click="picks(player, $index)" class="btn btn-primary">+</button><button ng-show="selections['{{player.name}}']" ng-click="dropPick(player)" class="btn btn-danger">-</button></td>
 						</tr>
 					</tbody>
 				</table>
