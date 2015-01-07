@@ -164,6 +164,10 @@ body{
 	max-width: 80%;
 }
 
+#addContestWrapper{
+	border: 1px solid grey;
+}
+
 div form{
 	margin: 0 auto;
 }
@@ -219,4 +223,7 @@ ul{
 
 #shortname{
 	background-color: white;
+}
+#contestList{
+	margin-top: 20px;
 }

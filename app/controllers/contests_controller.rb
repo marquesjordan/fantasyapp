@@ -12,7 +12,7 @@ class ContestsController < ApplicationController
   def create
     contest = Contest.create(contest_params)
     
-    # contest.save
+    
     render json: contest, status: 201
   end
 
@@ -35,6 +35,6 @@ class ContestsController < ApplicationController
     end
 
     def contest_params
-      params.require(:contest).permit(:contest_type, :description, :players_count, :num_players, :fee, :contest_date)
+      params.require(:contest).permit(:contest_type, :description, :players_count, :num_players, :fee, :contest_date, :contest_prize)
     end
 end

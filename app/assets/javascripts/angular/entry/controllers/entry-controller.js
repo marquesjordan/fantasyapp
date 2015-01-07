@@ -4,15 +4,20 @@ angular.module('spaApp')
 
   $scope.loading = [];
   $scope.selections = {};
+  $scope.todayContestPlayers = [];
 
   api.getPlayers()
   .then(function(data){
     $scope.players = data.data;
+    // console.log($scope.players);
   });
 
+
+  
+
   api.getEntries()
-  .then(function(data){
-    $scope.userTeams = data.data;
+  .then(function(data2){
+    $scope.userTeams = data2.data;
     //console.log($scope.userTeams);
     // $stateParams.contest_id
     $scope.gameEntry = [];
@@ -25,12 +30,10 @@ angular.module('spaApp')
     $scope.gameEntryCount = $scope.gameEntry.length;
   });
 
-
-
   // JSON api call to get response from database of the days fantasy competitions.
   api.getContests()
-  .then(function(data){
-    $scope.contests = data.data; // Set scope value equal to list of objects
+  .then(function(data3){
+    $scope.contests = data3.data; // Set scope value equal to list of objects
     $scope.todaysContests = []; // Array for todays Games
     
     // Set to length a games in schedule
@@ -59,12 +62,10 @@ angular.module('spaApp')
     }
   });
 
-
-
   $scope.today_schedule = [];
 
   api.getSchedules()
-  .then(function(data){
+  .then(function(data4){
     
     var d = new Date();
     var month = d.getMonth() + 1; //months from 1-12
@@ -73,7 +74,7 @@ angular.module('spaApp')
     newdate = year + "-" + month + "-" + day;
 
     $scope.todays_players = [];
-    $scope.schedule = data.data;
+    $scope.schedule = data4.data;
 
     $scope.today_teams = [];
 
@@ -117,8 +118,8 @@ angular.module('spaApp')
     }
 
     api.getTeams()
-      .then(function(data){
-        $scope.teams = data.data;
+      .then(function(data5){
+        $scope.teams = data5.data;
 
 
         for(var ts = 0; ts < $scope.today_schedule.length; ts++ ){
@@ -135,7 +136,6 @@ angular.module('spaApp')
             }
           }
         }
-
     });
 
     // $scope.getShortName = function(teamId){
@@ -170,29 +170,30 @@ angular.module('spaApp')
                     };
         } 
       }
-      console.log(gameObj);
       return gameObj;
     };
 
     for(var x = 0; x < $scope.today_size; x++){
-
       for(var p = 0; p < $scope.players.length; p++){
 
+
         if($scope.players[p].team_id == $scope.today_teams[x]){
+
           $scope.players[p].name = $scope.players[p].name.replace(/'/g, "");
           $scope.selections[$scope.players[p].name] = false;
-          
+          $scope.todayContestPlayers.push({playerInfo: $scope.players[p], game: "No Game Set"});
           var playerGame = $scope.getPlayerGame($scope.players[p].team_id);
+          // console.log(playerGame);
           // if (playerGame['player'] == "home") {
           //   var gameStr = playerGame[]
           // }
           $scope.todays_players.push($scope.players[p]);  
         }
-
       }
     }
-
+    console.log($scope.todayContestPlayers);
   });
+  console.log($scope.todayContestPlayers);
   
 
   $scope.myTeam = [
@@ -254,7 +255,7 @@ angular.module('spaApp')
       $scope.loading[$scope.pos] = true;
 
       $scope.selections[thisCell.name] = true;
-      console.log($scope.selections[thisCell.name]);
+      // console.log($scope.selections[thisCell.name]);
       $scope.teamCost += thisCell.cost;
       $scope.salary -= thisCell.cost;
       
@@ -350,5 +351,7 @@ angular.module('spaApp')
       $scope.myTeam[k].cost = 0;
     }
   }
+
+
 
 }]);

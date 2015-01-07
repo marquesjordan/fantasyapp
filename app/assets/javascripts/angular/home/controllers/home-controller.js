@@ -38,12 +38,13 @@ angular.module('spaApp')
   });
 
   $scope.addContest = function(){
+    var dy = new Date();
     if( $scope.challenge == 0){
       $scope.desc = "Tournament Challenge"
     }else if($scope.challenge == 1){
       $scope.desc = "50/50 League"
     }
-    var newContest = {contest_type: $scope.challenge, description: $scope.desc, num_players: $scope.c_size, fee: $scope.amount};
+    var newContest = {contest_type: $scope.challenge, description: $scope.desc, num_players: $scope.c_size, fee: $scope.amount, contest_date: dy };
 
 
     api.createContest(newContest);

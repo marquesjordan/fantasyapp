@@ -1,53 +1,9 @@
 
 <div class="container" id="body_main">
-	<h1>Welcome</h1>
-	<br>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-	  Create Contest
-	</button><br>
-	
-	<div class="contest_wrapper">
 
-		<div class="contest_wrapper">
-			<table class="table table-bordered table-striped table-fixed-header">
-				<thead class="header">
-				<tr>
-					<th>Contest ID</th>
-					<th>League Description</th>
-					<th>Entries</th>
-					<th>Size</th>
-					<th>Fee</th>
-					<th>Play</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr ng-repeat="contest in todaysContests" >
-					<td><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
-					<td>{{contest.description}}</td>
-					<td>{{contest.players_count}}</td>
-					<td>{{contest.num_players}}</td>
-					<td>{{contest.fee}}</td>
-					<td><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
-				</tr>
-				</tbody>
-			</table>
-
-		</div>
-
-	</div>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">New Contest</h4>
-      </div>
-      <div class="modal-body" id="contestWrapper">
+	<div class="row" id="contestList">
+		<div class="col-md-3">
+			<div id="addContestWrapper">
 				<form class="form-horizontal" id="createContest">
 
 				  <div class="form-group">
@@ -73,12 +29,49 @@
 				  </div>
 
 				</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" ng-click="addContest()">Submit</button>
-      </div>
-    </div>
-  </div>
+				
+				<div class="footer">
+				  <button type="button" class="btn btn-primary" ng-click="addContest()">Submit</button>
+				</div>
+			</div>
+		</div> <!-- end Col-md-4 -->
+
+		<div class="col-md-9">
+	
+			<div class="contest_wrapper">
+
+				<div class="contest_wrapper">
+					<table class="table table-bordered table-striped table-fixed-header">
+						<thead class="header">
+						<tr>
+							<th>Contest ID</th>
+							<th>League Description</th>
+							<th>Entries</th>
+							<th>Size</th>
+							<th>Fee</th>
+							<th>Play</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="contest in todaysContests" >
+							<td><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
+							<td>{{contest.description}}</td>
+							<td>{{contest.players_count}}</td>
+							<td>{{contest.num_players}}</td>
+							<td>{{contest.fee}}</td>
+							<td><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
+						</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+
+	</div>
 </div>
+
+</div>
+
+
 
