@@ -22,6 +22,11 @@ class EntriesController < ApplicationController
      # entry.user_id = current_user.id
     end
     
+    contest = Contest.where(:id == entry.contest_id).last
+    
+    tot = contest.contest_prize + contest.fee;
+    contest.update_attributes(:contest_prize => tot)
+
     entry.save
     render json: entry, status: 201
     # redirect_to root_path

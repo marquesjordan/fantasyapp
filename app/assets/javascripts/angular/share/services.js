@@ -45,7 +45,7 @@ angular.module('spaApp')
                    description: newContest['description'], 
                    num_players: newContest['num_players'], 
                    fee: newContest['fee']
-                  }).success(function(){ $location.path('/about') } );
+                  }).success(function(){ $location.path('/home') } );
 
 
           },

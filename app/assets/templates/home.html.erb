@@ -49,6 +49,7 @@
 							<th>Entries</th>
 							<th>Size</th>
 							<th>Fee</th>
+							<th>Prize</th>
 							<th>Play</th>
 						</tr>
 						</thead>
@@ -59,6 +60,7 @@
 							<td>{{contest.players_count}}</td>
 							<td>{{contest.num_players}}</td>
 							<td>{{contest.fee}}</td>
+							<td>{{contest.contest_prize}}</td>
 							<td><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
 						</tr>
 						</tbody>
