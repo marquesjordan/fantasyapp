@@ -8,12 +8,9 @@ angular.module('spaApp')
 
   api.getPlayers()
   .then(function(data){
-    $scope.players = data.data;
+    $scope.players = data.data; // used on 169
     // console.log($scope.players);
   });
-
-
-  
 
   api.getEntries()
   .then(function(data2){
@@ -50,17 +47,25 @@ angular.module('spaApp')
     // Takes the date of the game string and splits it to get the date only
     // compares with date set above and pushes the game into array if date matches
     for(var k = 0; k < contestLength; k++){
-      if($scope.contests[k].contest_date.split('T')[0] == newdate){
+      // if($scope.contests[k].contest_date.split('T')[0] == newdate){
+      if($scope.contests[k].contest_date == newdate){
         $scope.todaysContests.push($scope.contests[k]);
       }
       // console.log($scope.contests[k]._id.$oid);
       // console.log($stateParams.contest_id);
       if($scope.contests[k]._id.$oid == $stateParams.contest_id ){
         $scope.totalPlayersAllowed = $scope.contests[k].num_players;
-        $scope.contestFee = $scope.contests[k].fee
+        $scope.contestFee = $scope.contests[k].fee;
+        $scope.contestDesc = $scope.contests[k].description;
       }
     }
   });
+
+  // $scope.$watch( 'contests.length', function( contestsLength ) {
+  //   if (contestsLength) {
+  //     // NOW you know.
+  //   }
+  // } );
 
   $scope.today_schedule = [];
 
@@ -137,15 +142,6 @@ angular.module('spaApp')
           }
         }
     });
-
-    // $scope.getShortName = function(teamId){
-    //   for(var tsn = 0; tsn < $scope.teams.length; tsn++){
-    //     if(teamId == $scope.teams[tsn].nba_team_id){
-    //       var teamShort = $scope.teams[tsn].short_name;
-    //     }
-    //   }
-    //   return teamShort;
-    // };
     
 
     $scope.today_size = $scope.today_teams.length;
@@ -170,6 +166,7 @@ angular.module('spaApp')
                     };
         } 
       }
+      console.log(gameObj);
       return gameObj;
     };
 

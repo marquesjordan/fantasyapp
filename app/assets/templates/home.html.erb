@@ -41,27 +41,27 @@
 			<div class="contest_wrapper">
 
 				<div class="contest_wrapper">
-					<table class="table table-bordered table-striped table-fixed-header">
-						<thead class="header">
-						<tr>
-							<th>Contest ID</th>
-							<th>League Description</th>
-							<th>Entries</th>
-							<th>Size</th>
-							<th>Fee</th>
-							<th>Prize</th>
-							<th>Play</th>
+					<table class="table table-bordered table-striped table-fixed-header" id="main_table">
+						<thead>
+						<tr class="trow">
+							<th class="table_huge">Contest ID</th>
+							<th class="table_big">League Description</th>
+							<th class="table_main">Entries</th>
+							<th class="table_small">Size</th>
+							<th class="table_small">Fee</th>
+							<th class="table_small">Prize</th>
+							<th class="table_big">Play</th>
 						</tr>
 						</thead>
-						<tbody>
+						<tbody id="tbody">
 						<tr ng-repeat="contest in todaysContests" >
-							<td><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
-							<td>{{contest.description}}</td>
-							<td>{{contest.players_count}}</td>
-							<td>{{contest.num_players}}</td>
-							<td>{{contest.fee}}</td>
-							<td>{{contest.contest_prize}}</td>
-							<td><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
+							<td class="table_huge"><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
+							<td class="table_big">{{contest.description}}</td>
+							<td class="table_main">{{contest.players_count}}</td>
+							<td class="table_small">{{contest.num_players}}</td>
+							<td class="table_small">{{contest.fee}}</td>
+							<td class="table_small">{{contest.contest_prize}}</td>
+							<td class="table_big"><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
 						</tr>
 						</tbody>
 					</table>

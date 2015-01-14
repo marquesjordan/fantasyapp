@@ -24,8 +24,11 @@ class EntriesController < ApplicationController
     
     contest = Contest.where(:id == entry.contest_id).last
     
-    tot = contest.contest_prize + contest.fee;
+    tot = contest.contest_prize + contest.fee
+    ptot = contest.players_count + 1
     contest.update_attributes(:contest_prize => tot)
+    contest.update_attributes(:players_count => ptot)
+
 
     entry.save
     render json: entry, status: 201
