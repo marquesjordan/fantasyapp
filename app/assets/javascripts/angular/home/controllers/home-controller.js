@@ -38,7 +38,7 @@ angular.module('spaApp')
       // console.log($scope.contests[k].contest_date.split("T")[0]);
       // if($scope.contests[k].contest_date.split("T")[0] == newdate){
       gamedate = $scope.contests[k].contest_date;
-      if(gamedate == newdate){
+      if(gamedate == newdate && $scope.contests[k].contest_full == false){
         $scope.todaysContests.push($scope.contests[k]);
       }
     }
@@ -82,8 +82,9 @@ angular.module('spaApp')
       // console.log($scope.contests[k].contest_date.split("T")[0]);
       // if($scope.contests[k].contest_date.split("T")[0] == newdate){
       gamedate = $scope.contests[k].contest_date;
-      if(gamedate == newdate){
+      if(gamedate == newdate && $scope.contests[k].contest_full == false){
         $scope.todaysContests.push($scope.contests[k]);
+        console.log($scope.contests[k].players_count);
       }
     }
   });

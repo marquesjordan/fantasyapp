@@ -3,7 +3,55 @@
 
 	<div class="row" id="contestList">
 		<div class="col-md-3">
-			<div id="addContestWrapper">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Create League</button>
+
+			<p>* Contests Listed Are For Todays Games</p>
+		</div> <!-- end Col-md-4 -->
+
+		<div class="col-md-9">
+	
+			<div class="contest_wrapper">
+
+				<div class="contest_wrapper">
+					<table class="table table-bordered table-striped table-fixed-header" id="main_table">
+						<thead>
+						<tr class="trow">
+							<th class="table_huge">Contest ID</th>
+							<th class="table_huge">League Description</th>
+							<th class="table_medium">Entries</th>
+							<th class="table_smaller">Size</th>
+							<th class="table_smaller">Fee</th>
+							<th class="table_smaller">Prize</th>
+							<th class="table_medium">Play</th>
+						</tr>
+						</thead>
+						<tbody id="tbody">
+						<tr ng-repeat="contest in todaysContests" >
+							<td class="table_huge"><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
+							<td class="table_huge">{{contest.description}}</td>
+							<td class="table_medium">{{contest.players_count}}</td>
+							<td class="table_smaller">{{contest.num_players}}</td>
+							<td class="table_smaller">{{contest.fee}}</td>
+							<td class="table_smaller">{{contest.contest_prize}}</td>
+							<td class="table_medium"><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
+						</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+
+	</div>
+</div>
+
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+
+      <div class="modal-body">
 				<form class="form-horizontal" id="createContest">
 
 				  <div class="form-group">
@@ -29,51 +77,16 @@
 				  </div>
 
 				</form>
-				
-				<div class="footer">
-				  <button type="button" class="btn btn-primary" ng-click="addContest()">Submit</button>
-				</div>
-			</div>
-		</div> <!-- end Col-md-4 -->
+      </div>
 
-		<div class="col-md-9">
-	
-			<div class="contest_wrapper">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="addContest()" data-dismiss="modal">Save changes</button>
+      </div>
 
-				<div class="contest_wrapper">
-					<table class="table table-bordered table-striped table-fixed-header" id="main_table">
-						<thead>
-						<tr class="trow">
-							<th class="table_huge">Contest ID</th>
-							<th class="table_big">League Description</th>
-							<th class="table_main">Entries</th>
-							<th class="table_small">Size</th>
-							<th class="table_small">Fee</th>
-							<th class="table_small">Prize</th>
-							<th class="table_big">Play</th>
-						</tr>
-						</thead>
-						<tbody id="tbody">
-						<tr ng-repeat="contest in todaysContests" >
-							<td class="table_huge"><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
-							<td class="table_big">{{contest.description}}</td>
-							<td class="table_main">{{contest.players_count}}</td>
-							<td class="table_small">{{contest.num_players}}</td>
-							<td class="table_small">{{contest.fee}}</td>
-							<td class="table_small">{{contest.contest_prize}}</td>
-							<td class="table_big"><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
-						</tr>
-						</tbody>
-					</table>
 
-				</div>
 
-			</div>
-
-	</div>
+    </div>
+  </div>
 </div>
-
-</div>
-
-
 

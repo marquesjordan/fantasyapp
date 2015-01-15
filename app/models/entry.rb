@@ -16,5 +16,6 @@ class Entry
   field :sixth_name, type: String
   field :fan_points, type: Float
   field :user_id, type: String
+  field :nickname, type: String
   field :contest_id, type: String
 end

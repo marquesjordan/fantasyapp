@@ -8,7 +8,7 @@
 			<table class="table table-bordered table-striped table-fixed-header">
 				<thead class="header">
 				<tr>
-					<th>user_id</th>
+					<th>Username</th>
 					<th>Point Gaurd</th>
 					<th>Shooting Gaurd</th>
 					<th>Small Forward</th>
@@ -20,14 +20,14 @@
 				</thead>
 				<tbody>
 				<tr ng-repeat="team in gameEntry">
-					<td>{{team.user_id}}</a></td>
-					<td>{{team.pg_name}}</a></td>
-					<td>{{team.sg_name}}</a></td>
-					<td>{{team.sf_name}}</a></td>
-					<td>{{team.pf_name}}</a></td>
-					<td>{{team.c_name}}</a></td>
-					<td>{{team.sixth_name}}</a></td>
-					<td>{{team.fan_points}}</a></td>
+					<td>{{team.nickname}}</td>
+					<td>{{team.pg_name}}</td>
+					<td>{{team.sg_name}}</td>
+					<td>{{team.sf_name}}</td>
+					<td>{{team.pf_name}}</td>
+					<td>{{team.c_name}}</td>
+					<td>{{team.sixth_name}}</td>
+					<td>{{team.fan_points}}</td>
 				</tr>
 				</tbody>
 			</table>

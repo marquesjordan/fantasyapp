@@ -1,8 +1,8 @@
 
 
 <div class="container" id="body_main">
-	<h2 id="leauge">{{contestDesc}}</h2>
-	<p>Entries: {{gameEntryCount}} / {{totalPlayersAllowed}}  Entry fee: ${{contestFee}} Prize: $150,000<p>
+	<h2 id="leauge">League Type: <span id="ltype">{{contestDesc}}</span></h2>
+	<p>Entries: {{gameEntryCount}} / {{totalPlayersAllowed}}  Entry fee: ${{contestFee}} Prize Pool: ${{contestPrize}}.00<p>
 
 	<div id="games_wrapper">
 		<div id="games" ng-repeat="schedule in today_schedule">
@@ -70,7 +70,7 @@
 						<ul ng-repeat="myplayer in myTeam">
 							
 							<li class="team">
-								<div id="picture"><img src="{{myplayer.pic}}" height="72" width="72" ></div>
+								<div id="picture"><img src="{{myplayer.pic}}" height="72" width="82" ></div>
 								<div id="position">{{myplayer.position}}</div> 
 								<div id="playername">{{myplayer.player}}</div>
 								<div id="cost" ng-show="loading[$index]">{{myplayer.cost | number}} <button ng-click="removePick(myplayer, $index)" class="btn btn-danger">-</button></div>

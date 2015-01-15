@@ -46,7 +46,8 @@ angular.module('spaApp')
                    num_players: newContest['num_players'], 
                    fee: newContest['fee'],
                    contest_date: newContest['contest_date']
-                  }).success(function(){ $location.path('/home'); } );
+                  }).success(function(){ $location.path('/home').replace();
+                                         $scope.$apply(); });
 
 
           },

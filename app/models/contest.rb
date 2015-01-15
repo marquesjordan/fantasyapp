@@ -7,4 +7,6 @@ class Contest
   field :fee, type: Integer
   field :contest_date, type: String
   field :contest_prize, type: Integer, default: 0
+  field :contest_full, type: Boolean, default: false
+  field :contest_started, type: Boolean, default: false
 end

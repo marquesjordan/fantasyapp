@@ -142,7 +142,9 @@ body{
 .table_main { width: 135px; }
 .table_small { width: 45px; }
 .table_big { width: 205px; }
-.table_huge { width: 235px; }
+.table_huge { width: 250px; }
+.table_medium { width: 100px; }
+.table_smaller { width: 55px; }
 #tbody { 
 	display: block; 
 	height: 600px; 
@@ -194,7 +196,7 @@ ul{
 	// width: 200px;
 }
 #position{
-	margin-left: 5px;
+	margin-left: 15px;
 	margin-top: 10px;
 	width: 30px;
 	float: left;
@@ -206,7 +208,7 @@ ul{
 	margin-left: 20px;
 	margin-top: 10px;
 	font-size: 14pt;
-	width: 180px;
+	width: 170px;
 	float: left;	
 	color: blue;
 }
@@ -227,4 +229,7 @@ ul{
 }
 #contestList{
 	margin-top: 20px;
+}
+#ltype{
+	color: red;
 }

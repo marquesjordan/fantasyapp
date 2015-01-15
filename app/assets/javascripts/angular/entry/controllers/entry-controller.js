@@ -25,6 +25,7 @@ angular.module('spaApp')
       }
     }
     $scope.gameEntryCount = $scope.gameEntry.length;
+
   });
 
   // JSON api call to get response from database of the days fantasy competitions.
@@ -57,6 +58,7 @@ angular.module('spaApp')
         $scope.totalPlayersAllowed = $scope.contests[k].num_players;
         $scope.contestFee = $scope.contests[k].fee;
         $scope.contestDesc = $scope.contests[k].description;
+        $scope.contestPrize = $scope.gameEntryCount * $scope.contests[k].fee;
       }
     }
   });
