@@ -13,28 +13,27 @@ class EntriesController < ApplicationController
 
   def create
     # raise current_user
-    entry = Entry.create(entry_params)
     if user_signed_in?
+      entry = Entry.create(entry_params)
+    
       entry.user_id = current_user.id
       entry.nickname = current_user.nickname
-    else
-      # raise current_user
-      entry.user_id = 4
-     # entry.user_id = current_user.id
-    end
+
     
-    contest = Contest.find(entry.contest_id)
     
-    tot = contest.contest_prize + contest.fee
-    ptot = contest.players_count + 1
-    contest.update_attributes(:contest_prize => tot)
-    contest.update_attributes(:players_count => ptot)
-    if contest.players_count == contest.num_players
-      contest.update_attributes(:contest_full => true)
-    end
+      contest = Contest.find(entry.contest_id)
+      
+      tot = contest.contest_prize + contest.fee
+      ptot = contest.players_count + 1
+      contest.update_attributes(:contest_prize => tot)
+      contest.update_attributes(:players_count => ptot)
+      if contest.players_count == contest.num_players
+        contest.update_attributes(:contest_full => true)
+      end
 
 
-    entry.save
+      entry.save
+    end
     render json: entry, status: 201
     # redirect_to root_path
   end

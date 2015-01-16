@@ -58,7 +58,11 @@ angular.module('spaApp')
         $scope.totalPlayersAllowed = $scope.contests[k].num_players;
         $scope.contestFee = $scope.contests[k].fee;
         $scope.contestDesc = $scope.contests[k].description;
-        $scope.contestPrize = $scope.gameEntryCount * $scope.contests[k].fee;
+        if($scope.gameEntryCount == 0){
+          $scope.contestPrize = 0;  
+        }else{
+          $scope.contestPrize = $scope.gameEntryCount * $scope.contests[k].fee;
+        }
       }
     }
   });

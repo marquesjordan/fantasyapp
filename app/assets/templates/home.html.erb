@@ -17,22 +17,22 @@
 						<thead>
 						<tr class="trow">
 							<th class="table_huge">Contest ID</th>
-							<th class="table_huge">League Description</th>
+							<th class="table_regular">League Description</th>
 							<th class="table_medium">Entries</th>
 							<th class="table_smaller">Size</th>
-							<th class="table_smaller">Fee</th>
-							<th class="table_smaller">Prize</th>
+							<th class="table_medium">Fee</th>
+							<th class="table_medium">Prize</th>
 							<th class="table_medium">Play</th>
 						</tr>
 						</thead>
 						<tbody id="tbody">
 						<tr ng-repeat="contest in todaysContests" >
 							<td class="table_huge"><a ui-sref="team({ contest_id: contest._id.$oid})">{{contest._id.$oid}}</a></td>
-							<td class="table_huge">{{contest.description}}</td>
+							<td class="table_regular">{{contest.description}}</td>
 							<td class="table_medium">{{contest.players_count}}</td>
 							<td class="table_smaller">{{contest.num_players}}</td>
-							<td class="table_smaller">{{contest.fee}}</td>
-							<td class="table_smaller">{{contest.contest_prize}}</td>
+							<td class="table_medium">${{contest.fee}}.00</td>
+							<td class="table_medium">${{contest.contest_prize}}.00</td>
 							<td class="table_medium"><a ui-sref="entry({ contest_id: contest._id.$oid})", class="btn btn-success">Enter</a></td>
 						</tr>
 						</tbody>
